@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <!-- reset css -->
+  <link rel="stylesheet" href="/css/reset.css">
+  <!--共有の -->
+
+  <!-- 共通 css -->
+  <link rel="stylesheet" href="/css/common_admin.css">
+  <!--共有の -->
+
+  <!-- fontawesome -->
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css">
+
+  <title>映画追加 production_add</title>
+
+  <!-- ページ内スタイル -->
+  <style>
+    button {
+      background-color: #7698C5;
+    }
+  </style>
+</head>
+
+<!-- --------------------------body---------------------------------------------------------------------------- -->
+
+<body>
+
+  <!-- ---header -->
+  <header>
+    <h1>
+      <a href="/admin">
+        <span class="header-logo">HAL CHINEMA</span>
+        <span class="header-address">NAGOYA</span>
+      </a>
+    </h1>
+    <div>
+      <img src="/images/menu.png" alt="menu" onclick="menuFadeIn()">
+    </div>
+  </header>
+
+  <!-- menu -->
+  <article class="menu" id="menu">
+    <h2>MENU</h2>
+    <ul>
+      <li><a href="/admin" class="link">ホーム</a></li>
+      <li><a href="/admin/mail" class="link">メール作成</a></li>
+      <li><a href="/admin/pdf" class="link">データ分析</a></li>
+      <li><a href="/admin/production_list" class="link">登録映画一覧</a></li>
+      <li><a href="/admin/production_add" class="link">映画追加</a></li>
+      <li class="menu-logout">ログアウト</li>
+    </ul>
+    <img src="/images/menu_close.png" alt="メニュークローズアイコン" class="menu-close" onclick="menuFadeOut()">
+  </article>
+
+  <!-- ---main -->
+  <main class="production-main">
+    <!-- パンくずリスト -->
+    <p class="product-pankuzu">
+      <a class="link" href="/admin">HOME</a>
+      <span class="link-partition">＞</span>
+      <a class="link" href="/admin/production_list">登録映画一覧</a>
+      <span class="link-partition">＞</span>
+      <a class="link" href="/admin/production_add">映画追加</a>
+    </p>
+    <form class="product-block" action="/admin/production_add" method="POST" enctype="multipart/form-data">
+      <section class="product-sec">
+        <p style="color:cadetblue;font-weight: bold;"><%= success ? "アップロードが完了しました":"" %></p>
+        <p>
+          <img src="/images/icon_clock.png" alt="時計アイコン" class="product-clock">
+          <span>上映時間</span>
+          <select required name="runs">
+            <option value="" selected disabled>---</option>
+            <option value="60">60</option>
+            <option value="70">70</option>
+            <option value="80">80</option>
+            <option value="90">90</option>
+            <option value="100">100</option>
+            <option value="110">110</option>
+            <option value="120">120</option>
+            <option value="130">130</option>
+            <option value="140">140</option>
+            <option value="150">150</option>
+            <option value="160">160</option>
+            <option value="170">170</option>
+            <option value="180">180</option>
+          </select>
+          <span>分</span>
+        </p>
+        <h2>
+          <input type="text" placeholder="映画タイトルをここに入力" required size="35" name="movieName">
+        </h2>
+        <label for="target"><img src="/images/noSelect_poster.png" alt="フォームポスター画像" class="product-poster"
+            id="preview"></label>
+        <!-- accept="image/*" 画像ファイル以外はグレーアウト -->
+        <!-- このinputをスタイルでdisplay none -->
+        <input type="file" accept="image/*" id="target" name="poster">
+        <p>
+          <span>レイティング / R</span>
+          <select required name="rating">
+            <option value="0" disabled selected>--</option>
+            <option value="12">12</option>
+            <option value="15">15</option>
+            <option value="18">18</option>
+            <option value="20">20</option>
+          </select>
+          <span> + </span>
+        </p>
+        <p>
+          <span>監督 / </span>
+          <input type="text" placeholder="ex)バリーウォン、ジェイソンクワン" size="28" name="director" required>
+        </p>
+        <p>
+          <span>公開予定日 : </span>
+          <input type="date" name="releaseDay" id="releaseDay">
+        </p>
+      </section>
+
+
+      <section class="product-sec">
+        <h2>
+          STORY<br>
+          <textarea name="explain" required cols="36" rows="25" placeholder="ex)「イップ・マン」「ローグ・ワン　スター・ウォーズ・ストーリー」のドニー・イェンと「インファナル・アフェア」「グレートウォール」のアンディ・ラウというアジアの2大スターが共演したクライムドラマ。
+
+1960年代の香港に実在した香港マフィアのボス、ン・シックホーと警察署長ル"></textarea>
+        </h2>
+
+        <h2>
+          CAST<br>
+          <textarea name="cast" required cols="36" rows="5"
+            placeholder="ex)ドニー・イェン　｜　アンディ・ラウ　｜　フィリップ・キョン　｜　ケント・チェン"></textarea>
+        </h2>
+
+      </section>
+
+      <section class="product-button">
+        <button type="submit">映画追加</button>
+      </section>
+    </form>
+  </main>
+
+  <!-- ---footer -->
+  <footer onclick="scrollToTop()">
+    <img src="/images/arrow.png" alt="上矢印アイコン">
+    <p>Back top</p>
+  </footer>
+
+
+
+  <!-- orinal javascript file -->
+  <script src="/js/common.js"></script>
+
+  <script>
+    // eventListenerが干渉して他のページでエラーが起きてたけど
+    // ネットで拾ったjsで書き直すのが面倒だったからとりあえずわけた
+    // --- 映画画像選択form (/admin/production_add,production_edit.html)
+    const target = document.getElementById('target');
+    target.addEventListener('change', function (e) {
+      const file = e.target.files[0]
+      const reader = new FileReader();
+      reader.onload = function (e) {
+        const img = document.getElementById("preview")
+        img.src = e.target.result;
+      }
+      reader.readAsDataURL(file);
+    }, false);
+  </script>
+</body>
+
+</html>

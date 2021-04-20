@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <!-- reset css -->
+  <link rel="stylesheet" href="/css/reset.css">
+  <!--共有の -->
+
+  <!-- 共通 css -->
+  <link rel="stylesheet" href="/css/common_admin.css">
+  <!--共有の -->
+
+  <!-- fontawesome -->
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css">
+
+  <title>メール作成 mail</title>
+
+  <!-- ページ内スタイル -->
+  <style>
+    /* main style */
+    main {
+      margin: 200px auto 0 auto;
+      width: 50%;
+      max-width: 900px;
+      min-width: 350px;
+      font-size: 1.6rem;
+    }
+
+    main>p {
+      margin-bottom: 24px;
+    }
+
+    main>h2 {
+      margin-bottom: 16px;
+    }
+
+    main>button {
+      margin-top: 24px;
+      width: 100%;
+      background-color: #7698C5;
+    }
+
+    main textarea {
+      width: 100%;
+      padding: 8px 8px;
+      height: 280px;
+    }
+  </style>
+</head>
+
+<!-- --------------------------body---------------------------------------------------------------------------- -->
+
+<body>
+
+  <!-- ---header -->
+  <header>
+    <h1>
+      <a href="/admin">
+        <span class="header-logo">HAL CHINEMA</span>
+        <span class="header-address">NAGOYA</span>
+      </a>
+    </h1>
+    <div>
+      <img src="/images/menu.png" alt="menu" onclick="menuFadeIn()">
+    </div>
+  </header>
+
+  <!-- menu -->
+  <article class="menu" id="menu">
+    <h2>MENU</h2>
+    <ul>
+      <li><a href="/admin" class="link">ホーム</a></li>
+      <li><a href="/admin/mail" class="link">メール作成</a></li>
+      <li><a href="/admin/pdf" class="link">データ分析</a></li>
+      <li><a href="/admin/production_list" class="link">登録映画一覧</a></li>
+      <li><a href="/admin/production_add" class="link">映画追加</a></li>
+      <li class="menu-logout">ログアウト</li>
+    </ul>
+    <img src="//images/menu_close.png" alt="メニュークローズアイコン" class="menu-close" onclick="menuFadeOut()">
+  </article>
+
+
+  <main>
+    <!-- パンくずリスト -->
+    <p>
+      <a class="link" href="/admin">HOME</a>
+      <span class="link-partition">＞</span>
+      <a class="link" href="/admin/mail">メール作成</a>
+    </p>
+
+    <h2>メール作成</h2>
+
+    <!-- form -->
+    <form>
+      <textarea placeholder="ここにメール本文を入力"></textarea>
+    </form>
+    <button onclick="modalFadeIn()">メール送信</button>
+
+    <!-- modal -->
+    <div class="modal-black" id="modal">
+      <div class="modal-white">
+        <h3>メールを本当に送信しますか？</h3>
+        <p>送信する前に必ず内容を確認してください</p>
+        <button onclick="modalFadeOut()">戻る</span>
+          <button class="modal_submit">送信</button>
+      </div>
+    </div>
+
+  </main>
+
+
+
+
+
+
+
+  <!-- orinal javascript file -->
+  <script src="/js/common.js"></script>
+</body>
+
+</html>

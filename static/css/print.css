@@ -1,0 +1,33 @@
+@page { 
+  size:landscape; 
+  margin: 20px;
+}
+
+header{
+  display: none;
+}
+
+#app{
+  display: none;
+}
+
+#graphs{
+  display: block;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.print{
+}
+
+.print h2{
+  font-size: 20px;
+  color: #222;
+}
+
+footer{
+  display: none;
+}

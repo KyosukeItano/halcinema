@@ -1,0 +1,927 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <!-- reset css -->
+  <link rel="stylesheet" href="/css/reset.css">
+  <!--共有の -->
+
+  <!-- 共通 css -->
+  <link rel="stylesheet" href="/css/common_admin.css">
+  <!--共有の -->
+
+  <!-- fontawesome -->
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css">
+
+  <script src="/js/axios.min.js"></script>
+
+  <title>スクリーンスケジュール screen_schedule</title>
+
+  <!-- ページ内スタイル -->
+  <style>
+    /* ----映画追加パネル */
+    .panel {
+      display: none;
+      position: fixed;
+      z-index: 101;
+      right: 0;
+      top: 80px;
+      padding: 16px 24px;
+      width: 375px;
+      height: 200px;
+      background-color: white;
+      box-shadow: 0 3px 6px #ddd;
+      border-radius: 0 0 20px 20px;
+      font-size: 1.4rem;
+    }
+
+    .panel h3 {
+      text-align: center;
+      font-weight: normal;
+    }
+
+    .panel form {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      margin-top: 12px;
+      height: 140px;
+      /* background-color: aqua; */
+    }
+
+    .panel_product {
+      width: 100%;
+    }
+
+    .panel button {
+      background-color: #7698C5;
+      width: calc(100% + 8px);
+      transform: translatex(-4px);
+    }
+
+    .panel_hide {
+      position: absolute;
+      right: 0;
+      top: 0;
+      width: 80px;
+      height: 40px;
+      line-height: 40px;
+      text-align: center;
+      transition: opacity .3s;
+      cursor: pointer;
+    }
+
+    .panel_hide:hover {
+      opacity: .7;
+    }
+
+    .panel_show {
+      position: fixed;
+      z-index: 10;
+      right: 0;
+      top: 80px;
+      width: 100%;
+      height: 48px;
+      line-height: 48px;
+      background-color: #7698C5;
+      border-radius: 0 0 20px 20px;
+      color: white;
+      text-align: center;
+      font-size: 1.2rem;
+      font-weight: bold;
+      cursor: pointer;
+      transition:
+        background-color .3s,
+        color .3s,
+        border .3s;
+    }
+
+    .panel_show:hover {
+      background-color: white;
+      color: #aaa;
+      border: 1px solid #aaa;
+    }
+
+    /* ----main */
+    main {
+      margin: 200px auto 200px auto;
+      min-height: 1000px;
+      width: 90%;
+      min-width: 350px;
+      max-width: 1200px;
+      font-size: 1.6rem;
+    }
+
+    .screen_top {
+      margin: 20px 0 48px 0;
+    }
+
+    .screen_top .screen_day {
+      font-size: 2rem;
+      font-weight: bold;
+      margin-right: 8px;
+    }
+
+    .screen_top a {
+      color: #7698C5;
+    }
+
+    .screen_top a:hover {
+      opacity: .6;
+    }
+
+    .screen_jump_head {
+      text-align: center;
+      font-size: 1.2rem;
+      font-weight: bold;
+    }
+
+    .screen_jump {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-evenly;
+      margin-bottom: 40px;
+      margin-top: 8px;
+      list-style: none;
+    }
+
+    .screen_jump div {
+      display: flex;
+      justify-content: space-around;
+      min-width: 350px;
+      width: 50%;
+    }
+
+    .screen_jump li {
+      background-color: white;
+      border: 1px solid #ddd;
+      width: 25%;
+      height: 40px;
+      line-height: 40px;
+      text-align: center;
+      font-size: 1.1rem;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background-color .3s;
+    }
+
+    .screen_jump li:hover {
+      background-color: #ddd;
+    }
+
+    .screen_sec_p {
+      width: calc(100% + 20px);
+      transform: translateX(-10px);
+      position: relative;
+      margin: 20px 0 48px 0;
+      padding: 36px;
+      border: .5px solid #DDDDDD;
+      background-color: white;
+      border-radius: 8px;
+    }
+
+    .screen_sec {
+      width: calc(100% + 20px);
+      transform: translateX(-10px);
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: flex-start;
+      background-color: white;
+    }
+
+    .screen_sec:nth-child(1) {
+      margin-top: 400px;
+    }
+
+    .screen_sec_p h3 {
+      position: absolute;
+      top: 0;
+      left: 28px;
+      transform: translateY(-50%);
+      display: inline-block;
+      padding: 4px 12px;
+      border-left: 8px solid #7698C5;
+      font-size: 2rem;
+    }
+
+    .screen_sec div {
+      position: relative;
+      margin: 8px 8px 8px 12px;
+      width: 160px;
+      height: 110px;
+      padding: 14px 12px;
+      border: 1px solid #ddd;
+      font-size: .9rem;
+      border-radius: 4px;
+    }
+
+    .screen_sec h4 {
+      cursor: pointer;
+      overflow-y: scroll;
+      height: 50px;
+      margin-bottom: 10px;
+      font-weight: normal;
+      line-height: 1.5;
+    }
+
+    .screen_sec h4::-webkit-scrollbar {
+      display: none;
+    }
+
+    .screen_sec div p {
+      padding-top: 8px;
+      border-top: 1px solid #DDDDDD;
+    }
+
+    .screen_sec div p span {
+      padding-left: 8px;
+      font-weight: bold;
+      font-size: 1.2rem;
+    }
+
+    .screen_button {
+      position: absolute;
+      right: 0;
+      bottom: 0;
+      transform: translate(45%, 30%);
+      width: 40px;
+      height: 40px;
+      background-color: #EEEEEE;
+      box-shadow: 0 1px 2px #ddd;
+    }
+
+    .screen_button img {
+      width: 18px;
+      height: auto;
+    }
+
+    .screen_none {
+      line-height: 1.3;
+    }
+
+    footer {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+    }
+
+    @media screen and (max-width: 500px) {
+      .panel {
+        width: 100%;
+      }
+
+      .screen_sec div {
+        font-size: 1.3rem;
+        width: 100%;
+      }
+
+      .screen_sec div h4 {
+        margin-top: 4px;
+        height: 40px;
+      }
+
+    }
+  </style>
+</head>
+
+<!-- --------------------------body---------------------------------------------------------------------------- -->
+
+<body>
+
+  <!-- ---header -->
+  <header>
+    <h1>
+      <a href="/admin">
+        <span class="header-logo">HAL CINEMA</span>
+        <span class="header-address"><%= cinemaName %></span>
+      </a>
+    </h1>
+    <div>
+      <img src="/images/menu.png" alt="menu" onclick="menuFadeIn()">
+    </div>
+  </header>
+
+  <!-- menu -->
+  <article class="menu" id="menu">
+    <h2>MENU</h2>
+    <ul>
+      <li><a href="/admin" class="link">ホーム</a></li>
+      <li><a href="/admin/mail" class="link">メール作成</a></li>
+      <li><a href="/admin/pdf" class="link">データ分析</a></li>
+      <li><a href="/admin/production_list" class="link">登録映画一覧</a></li>
+      <li><a href="/admin/production_add" class="link">映画追加</a></li>
+      <li class="menu-logout">ログアウト</li>
+    </ul>
+    <img src="/images/menu_close.png" alt="メニュークローズアイコン" class="menu-close" onclick="menuFadeOut()">
+  </article>
+
+
+  <!-- 映画追加パネル -->
+  <div class="panel" id="panel">
+    <p class="panel_hide" onclick="panelFadeOut()">隠す ▲</p>
+    <h3>映画追加パネル</h3>
+    <form>
+      <p>
+        <span>Screen</span>
+        <select required name="screen">
+          <option value="" disabled selected>--</option>
+          <option value="1">01</option>
+          <option value="2">02</option>
+          <option value="3">03</option>
+          <option value="4">04</option>
+          <option value="5">05</option>
+          <option value="6">06</option>
+          <option value="7">07</option>
+          <option value="8">08</option>
+        </select>
+      </p>
+      <p>
+        <span>上映開始時刻</span>
+        <select required name="hour">
+          <option value="" disabled selected>--</option>
+          <option value="1">01</option>
+          <option value="2">02</option>
+          <option value="3">03</option>
+          <option value="4">04</option>
+          <option value="5">05</option>
+          <option value="6">06</option>
+          <option value="7">07</option>
+          <option value="8">08</option>
+          <option value="9">09</option>
+          <option value="10">10</option>
+          <option value="11">11</option>
+          <option value="12">12</option>
+          <option value="13">13</option>
+          <option value="14">14</option>
+          <option value="15">15</option>
+          <option value="16">16</option>
+          <option value="17">17</option>
+          <option value="18">18</option>
+          <option value="19">19</option>
+          <option value="20">20</option>
+          <option value="21">21</option>
+          <option value="22">22</option>
+          <option value="23">23</option>
+          <option value="0">00</option>
+        </select>
+        <span> ： </span>
+        <select required name="minute">
+          <option value="" selected disabled>--</option>
+          <option value="0">00</option>
+          <option value="5">05</option>
+          <option value="10">10</option>
+          <option value="15">15</option>
+          <option value="20">20</option>
+          <option value="25">25</option>
+          <option value="30">30</option>
+          <option value="45">45</option>
+          <option value="50">50</option>
+          <option value="55">55</option>
+        </select>
+      </p>
+      <p>
+        <select required class="panel_product" name="movieId">
+          <option value="" disabled selected>上映追加映画を選択</option>
+          <% for(let movie of movieList){ %>
+          <option value="<%= movie.movieId %>"><%= movie.movieName %></option>
+          <% } %>
+          <option value="c01">[吹き替え・3D]ミッション：インポッシブル 7人の使徒と探すジョニー </option>
+          <option value="c02">心が叫びたがっているんだ</option>
+          <option value="c03">[吹き替え]ハーレクイーン・ジョーカーの過去</option>
+          <option value="c04">[3D]『映画ドラえもん のび太の月面探査記』</option>
+          <option value="c05">１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０</option>
+        </select>
+      </p>
+      <button type="button" onclick="postSchedule()">追加</button>
+    </form>
+
+  </div>
+  <div class="panel_show" id="panel_show" onclick="panelFadeIn()">
+    映画追加パネル表示 ▼
+  </div>
+
+  <!-- ---main -->
+  <main>
+    <!-- パンくずリスト -->
+    <p>
+      <a class="link" href="/admin">HOME</a>
+      <span class="link-partition">＞</span>
+      <a class="link" href="/admin/screen_schedule">スクリーン上映管理</a>
+    </p>
+
+    <p class="screen_top">
+      <% const targetDate = new Date(date); %>
+      <% const dayOfWeekStr = [ "日", "月", "火", "水", "木", "金", "土" ]; %>
+      <span
+        class="screen_day"><%= targetDate.getFullYear(); %>年<%= targetDate.getMonth() + 1; %>月<%= targetDate.getDate(); %>日(<%= dayOfWeekStr[targetDate.getDay()]; %>)</span>
+      <span>新作上映映画を追加したい際は<a href="/admin/production_add">こちら</a></span>
+    </p>
+    <h2>HALシネマ<%= cinemaName %></h2>
+    <p class="screen_jump_head">ページ内ジャンプリンク</p>
+    <ul class="screen_jump">
+      <div>
+        <li onclick="scrollScreen(this)">screen1</li>
+        <li onclick="scrollScreen(this)">screen2</li>
+        <li onclick="scrollScreen(this)">screen3</li>
+        <li onclick="scrollScreen(this)">screen4</li>
+      </div>
+      <div>
+        <li onclick="scrollScreen(this)">screen5</li>
+        <li onclick="scrollScreen(this)">screen6</li>
+        <li onclick="scrollScreen(this)">screen7</li>
+        <li onclick="scrollScreen(this)">screen8</li>
+      </div>
+    </ul>
+
+
+
+    <!-- -screen1 -->
+    <section class="screen_sec_p">
+      <h3>Screen 01</h3>
+      <!-- item -->
+      <div class="screen_sec" id="screen1">
+        <div>
+          <h4>[吹き替え・3D]ミッション：インポッシブョニー</h4>
+          <p><span>09：30 〜</span> 11:30</p>
+          <button class="screen_button">
+            <img src="/images/dust_icon.png" alt="ゴミ箱アイコン">
+          </button>
+        </div>
+        <!-- item -->
+        <div>
+          <h4>[吹き替え・3D]ミッション：インポッシブル 7人の使徒と探すジョニー</h4>
+          <p><span>09：30 〜</span> 11:30</p>
+          <button class="screen_button">
+            <img src="/images/dust_icon.png" alt="ゴミ箱アイコン">
+          </button>
+        </div>
+        <!-- item -->
+        <div>
+          <h4>[吹き替え・3D]ミッション：インポッシブル 7人の使徒と探すジョニー</h4>
+          <p><span>09：30 〜</span> 11:30</p>
+          <button class="screen_button">
+            <img src="/images/dust_icon.png" alt="ゴミ箱アイコン">
+          </button>
+        </div>
+        <!-- item -->
+        <div>
+          <h4>[吹き替え・3D]ミッション：インポッシブル 7人の使徒と探すジョニー</h4>
+          <p><span>09：30 〜</span> 11:30</p>
+          <button class="screen_button">
+            <img src="/images/dust_icon.png" alt="ゴミ箱アイコン">
+          </button>
+        </div>
+        <!-- item -->
+        <div>
+          <h4>[吹き替え・3D]ミッション：インポッシブル 7人の使徒と探すジョニー</h4>
+          <p><span>09：30 〜</span> 11:30</p>
+          <button class="screen_button">
+            <img src="/images/dust_icon.png" alt="ゴミ箱アイコン">
+          </button>
+        </div>
+        <!-- item -->
+        <div>
+          <h4>[吹き替え・3D]ミッション：インポッシブル [吹き替え・3D]ミッション：インポッシブル [吹き替え・3D]ミッション：インポッシブル 7人の使徒と探すジョニーッション：インポッシブル
+            7人の使徒と探すジョニーッション：インポッシブル 7人の使徒と探すジョニー</h4>
+          <p><span>09：30 〜</span> 11:30</p>
+          <button class="screen_button">
+            <img src="/images/dust_icon.png" alt="ゴミ箱アイコン">
+          </button>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- -screen2 -->
+    <section class="screen_sec_p">
+      <h3>Screen 02</h3>
+      <div class="screen_sec" id="screen2">
+        <p class="screen_none">このスクリーンは現在、スケジュールが登録されていません</p>
+      </div>
+    </section>
+
+    <!-- -screen3 -->
+    <section class="screen_sec_p">
+      <h3>Screen 03</h3>
+      <!-- item -->
+      <div class="screen_sec" id="screen3">
+        <!-- item -->
+        <div>
+          <h4>[吹き替え・3D]ミッション：インポッシブル 7人の使徒と探すジョニー</h4>
+          <p><span>09：30 〜</span> 11:30</p>
+          <button class="screen_button">
+            <img src="/images/dust_icon.png" alt="ゴミ箱アイコン">
+          </button>
+        </div>
+        <!-- item -->
+        <div>
+          <h4>[吹き替え・3D]ミッション：インポッシブル 7人の使徒と探すジョニー</h4>
+          <p><span>09：30 〜</span> 11:30</p>
+          <button class="screen_button">
+            <img src="/images/dust_icon.png" alt="ゴミ箱アイコン">
+          </button>
+        </div>
+        <!-- item -->
+        <div>
+          <h4>[吹き替え・3D]ミッション：インポッシブル 7人の使徒と探すジョニー</h4>
+          <p><span>09：30 〜</span> 11:30</p>
+          <button class="screen_button">
+            <img src="/images/dust_icon.png" alt="ゴミ箱アイコン">
+          </button>
+        </div>
+        <!-- item -->
+        <div>
+          <h4>[吹き替え・3D]ミッション：インポッシブル 7人の使徒と探すジョニー</h4>
+          <p><span>09：30 〜</span> 11:30</p>
+          <button class="screen_button">
+            <img src="/images/dust_icon.png" alt="ゴミ箱アイコン">
+          </button>
+        </div>
+        <!-- item -->
+        <div>
+          <h4>[吹き替え・3D]ミッション：インポッシブル 7人の使徒と探すジョニー</h4>
+          <p><span>09：30 〜</span> 11:30</p>
+          <button class="screen_button">
+            <img src="/images/dust_icon.png" alt="ゴミ箱アイコン">
+          </button>
+        </div>
+        <!-- item -->
+        <div>
+          <h4>[吹き替え・3D]ミッション：インポッシブル [吹き替え・3D]ミッション：インポッシブル [吹き替え・3D]ミッション：インポッシブル 7人の使徒と探すジョニーッション：インポッシブル
+            7人の使徒と探すジョニーッション：インポッシブル 7人の使徒と探すジョニー</h4>
+          <p><span>09：30 〜</span> 11:30</p>
+          <button class="screen_button">
+            <img src="/images/dust_icon.png" alt="ゴミ箱アイコン">
+          </button>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- -screen4 -->
+    <section class="screen_sec_p">
+      <h3>Screen 04</h3>
+      <!-- item -->
+      <div class="screen_sec" id="screen4">
+        <!-- item -->
+        <div>
+          <h4>[吹き替え・3D]ミッション：インポッシブル 7人の使徒と探すジョニー</h4>
+          <p><span>09：30 〜</span> 11:30</p>
+          <button class="screen_button">
+            <img src="/images/dust_icon.png" alt="ゴミ箱アイコン">
+          </button>
+        </div>
+        <!-- item -->
+        <div>
+          <h4>[吹き替え・3D]ミッション：インポッシブル 7人の使徒と探すジョニー</h4>
+          <p><span>09：30 〜</span> 11:30</p>
+          <button class="screen_button">
+            <img src="/images/dust_icon.png" alt="ゴミ箱アイコン">
+          </button>
+        </div>
+        <!-- item -->
+        <div>
+          <h4>[吹き替え・3D]ミッション：インポッシブル 7人の使徒と探すジョニー</h4>
+          <p><span>09：30 〜</span> 11:30</p>
+          <button class="screen_button">
+            <img src="/images/dust_icon.png" alt="ゴミ箱アイコン">
+          </button>
+        </div>
+        <!-- item -->
+        <div>
+          <h4>[吹き替え・3D]ミッション：インポッシブル 7人の使徒と探すジョニー</h4>
+          <p><span>09：30 〜</span> 11:30</p>
+          <button class="screen_button">
+            <img src="/images/dust_icon.png" alt="ゴミ箱アイコン">
+          </button>
+        </div>
+        <!-- item -->
+        <div>
+          <h4>[吹き替え・3D]ミッション：インポッシブル 7人の使徒と探すジョニー</h4>
+          <p><span>09：30 〜</span> 11:30</p>
+          <button class="screen_button">
+            <img src="/images/dust_icon.png" alt="ゴミ箱アイコン">
+          </button>
+        </div>
+        <!-- item -->
+        <div>
+          <h4>[吹き替え・3D]ミッション：インポッシブル [吹き替え・3D]ミッション：インポッシブル [吹き替え・3D]ミッション：インポッシブル 7人の使徒と探すジョニーッション：インポッシブル
+            7人の使徒と探すジョニーッション：インポッシブル 7人の使徒と探すジョニー</h4>
+          <p><span>09：30 〜</span> 11:30</p>
+          <button class="screen_button">
+            <img src="/images/dust_icon.png" alt="ゴミ箱アイコン">
+          </button>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- -screen5 -->
+    <section class="screen_sec_p">
+      <h3>Screen 05</h3>
+      <!-- item -->
+      <div class="screen_sec" id="screen5">
+        <!-- item -->
+        <div>
+          <h4>[吹き替え・3D]ミッション：インポッシブル 7人の使徒と探すジョニー</h4>
+          <p><span>09：30 〜</span> 11:30</p>
+          <button class="screen_button">
+            <img src="/images/dust_icon.png" alt="ゴミ箱アイコン">
+          </button>
+        </div>
+        <!-- item -->
+        <div>
+          <h4>[吹き替え・3D]ミッション：インポッシブル 7人の使徒と探すジョニー</h4>
+          <p><span>09：30 〜</span> 11:30</p>
+          <button class="screen_button">
+            <img src="/images/dust_icon.png" alt="ゴミ箱アイコン">
+          </button>
+        </div>
+        <!-- item -->
+        <div>
+          <h4>[吹き替え・3D]ミッション：インポッシブル 7人の使徒と探すジョニー</h4>
+          <p><span>09：30 〜</span> 11:30</p>
+          <button class="screen_button">
+            <img src="/images/dust_icon.png" alt="ゴミ箱アイコン">
+          </button>
+        </div>
+        <!-- item -->
+        <div>
+          <h4>[吹き替え・3D]ミッション：インポッシブル 7人の使徒と探すジョニー</h4>
+          <p><span>09：30 〜</span> 11:30</p>
+          <button class="screen_button">
+            <img src="/images/dust_icon.png" alt="ゴミ箱アイコン">
+          </button>
+        </div>
+        <!-- item -->
+        <div>
+          <h4>[吹き替え・3D]ミッション：インポッシブル 7人の使徒と探すジョニー</h4>
+          <p><span>09：30 〜</span> 11:30</p>
+          <button class="screen_button">
+            <img src="/images/dust_icon.png" alt="ゴミ箱アイコン">
+          </button>
+        </div>
+        <!-- item -->
+        <div>
+          <h4>[吹き替え・3D]ミッション：インポッシブル [吹き替え・3D]ミッション：インポッシブル [吹き替え・3D]ミッション：インポッシブル 7人の使徒と探すジョニーッション：インポッシブル
+            7人の使徒と探すジョニーッション：インポッシブル 7人の使徒と探すジョニー</h4>
+          <p><span>09：30 〜</span> 11:30</p>
+          <button class="screen_button">
+            <img src="/images/dust_icon.png" alt="ゴミ箱アイコン">
+          </button>
+        </div>
+      </div>
+
+
+    </section>
+
+    <!-- -screen6 -->
+    <section class="screen_sec_p">
+      <h3>Screen 06</h3>
+      <!-- item -->
+      <div class="screen_sec" id="screen6">
+        <!-- item -->
+        <div>
+          <h4>[吹き替え・3D]ミッション：インポッシブル 7人の使徒と探すジョニー</h4>
+          <p><span>09：30 〜</span> 11:30</p>
+          <button class="screen_button">
+            <img src="/images/dust_icon.png" alt="ゴミ箱アイコン">
+          </button>
+        </div>
+        <!-- item -->
+        <div>
+          <h4>[吹き替え・3D]ミッション：インポッシブル 7人の使徒と探すジョニー</h4>
+          <p><span>09：30 〜</span> 11:30</p>
+          <button class="screen_button">
+            <img src="/images/dust_icon.png" alt="ゴミ箱アイコン">
+          </button>
+        </div>
+        <!-- item -->
+        <div>
+          <h4>[吹き替え・3D]ミッション：インポッシブル 7人の使徒と探すジョニー</h4>
+          <p><span>09：30 〜</span> 11:30</p>
+          <button class="screen_button">
+            <img src="/images/dust_icon.png" alt="ゴミ箱アイコン">
+          </button>
+        </div>
+        <!-- item -->
+        <div>
+          <h4>[吹き替え・3D]ミッション：インポッシブル 7人の使徒と探すジョニー</h4>
+          <p><span>09：30 〜</span> 11:30</p>
+          <button class="screen_button">
+            <img src="/images/dust_icon.png" alt="ゴミ箱アイコン">
+          </button>
+        </div>
+        <!-- item -->
+        <div>
+          <h4>[吹き替え・3D]ミッション：インポッシブル 7人の使徒と探すジョニー</h4>
+          <p><span>09：30 〜</span> 11:30</p>
+          <button class="screen_button">
+            <img src="/images/dust_icon.png" alt="ゴミ箱アイコン">
+          </button>
+        </div>
+        <!-- item -->
+        <div>
+          <h4>[吹き替え・3D]ミッション：インポッシブル [吹き替え・3D]ミッション：インポッシブル [吹き替え・3D]ミッション：インポッシブル 7人の使徒と探すジョニーッション：インポッシブル
+            7人の使徒と探すジョニーッション：インポッシブル 7人の使徒と探すジョニー</h4>
+          <p><span>09：30 〜</span> 11:30</p>
+          <button class="screen_button">
+            <img src="/images/dust_icon.png" alt="ゴミ箱アイコン">
+          </button>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- -screen7 -->
+    <section class="screen_sec_p">
+      <h3>Screen 07</h3>
+      <!-- item -->
+      <div class="screen_sec" id="screen7">
+        <!-- item -->
+        <div>
+          <h4>[吹き替え・3D]ミッション：インポッシブル 7人の使徒と探すジョニー</h4>
+          <p><span>09：30 〜</span> 11:30</p>
+          <button class="screen_button">
+            <img src="/images/dust_icon.png" alt="ゴミ箱アイコン">
+          </button>
+        </div>
+        <!-- item -->
+        <div>
+          <h4>[吹き替え・3D]ミッション：インポッシブル 7人の使徒と探すジョニー</h4>
+          <p><span>09：30 〜</span> 11:30</p>
+          <button class="screen_button">
+            <img src="/images/dust_icon.png" alt="ゴミ箱アイコン">
+          </button>
+        </div>
+        <!-- item -->
+        <div>
+          <h4>[吹き替え・3D]ミッション：インポッシブル 7人の使徒と探すジョニー</h4>
+          <p><span>09：30 〜</span> 11:30</p>
+          <button class="screen_button">
+            <img src="/images/dust_icon.png" alt="ゴミ箱アイコン">
+          </button>
+        </div>
+        <!-- item -->
+        <div>
+          <h4>[吹き替え・3D]ミッション：インポッシブル 7人の使徒と探すジョニー</h4>
+          <p><span>09：30 〜</span> 11:30</p>
+          <button class="screen_button">
+            <img src="/images/dust_icon.png" alt="ゴミ箱アイコン">
+          </button>
+        </div>
+        <!-- item -->
+        <div>
+          <h4>[吹き替え・3D]ミッション：インポッシブル 7人の使徒と探すジョニー</h4>
+          <p><span>09：30 〜</span> 11:30</p>
+          <button class="screen_button">
+            <img src="/images/dust_icon.png" alt="ゴミ箱アイコン">
+          </button>
+        </div>
+        <!-- item -->
+        <div>
+          <h4>[吹き替え・3D]ミッション：インポッシブル [吹き替え・3D]ミッション：インポッシブル [吹き替え・3D]ミッション：インポッシブル 7人の使徒と探すジョニーッション：インポッシブル
+            7人の使徒と探すジョニーッション：インポッシブル 7人の使徒と探すジョニー</h4>
+          <p><span>09：30 〜</span> 11:30</p>
+          <button class="screen_button">
+            <img src="/images/dust_icon.png" alt="ゴミ箱アイコン">
+          </button>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- -screen8 -->
+    <section class="screen_sec_p">
+      <h3>Screen 08</h3>
+      <!-- item -->
+      <div class="screen_sec" id="screen8">
+        <!-- item -->
+        <div>
+          <h4>[吹き替え・3D]ミッション：インポッシブル 7人の使徒と探すジョニー</h4>
+          <p><span>09：30 〜</span> 11:30</p>
+          <button class="screen_button">
+            <img src="/images/dust_icon.png" alt="ゴミ箱アイコン">
+          </button>
+        </div>
+        <!-- item -->
+        <div>
+          <h4>[吹き替え・3D]ミッション：インポッシブル 7人の使徒と探すジョニー</h4>
+          <p><span>09：30 〜</span> 11:30</p>
+          <button class="screen_button">
+            <img src="/images/dust_icon.png" alt="ゴミ箱アイコン">
+          </button>
+        </div>
+        <!-- item -->
+        <div>
+          <h4>[吹き替え・3D]ミッション：インポッシブル 7人の使徒と探すジョニー</h4>
+          <p><span>09：30 〜</span> 11:30</p>
+          <button class="screen_button">
+            <img src="/images/dust_icon.png" alt="ゴミ箱アイコン">
+          </button>
+        </div>
+        <!-- item -->
+        <div>
+          <h4>[吹き替え・3D]ミッション：インポッシブル 7人の使徒と探すジョニー</h4>
+          <p><span>09：30 〜</span> 11:30</p>
+          <button class="screen_button">
+            <img src="/images/dust_icon.png" alt="ゴミ箱アイコン">
+          </button>
+        </div>
+        <!-- item -->
+        <div>
+          <h4>[吹き替え・3D]ミッション：インポッシブル 7人の使徒と探すジョニー</h4>
+          <p><span>09：30 〜</span> 11:30</p>
+          <button class="screen_button">
+            <img src="/images/dust_icon.png" alt="ゴミ箱アイコン">
+          </button>
+        </div>
+        <!-- item -->
+        <div>
+          <h4>[吹き替え・3D]ミッション：インポッシブル [吹き替え・3D]ミッション：インポッシブル [吹き替え・3D]ミッション：インポッシブル 7人の使徒と探すジョニーッション：インポッシブル
+            7人の使徒と探すジョニーッション：インポッシブル 7人の使徒と探すジョニー</h4>
+          <p><span>09：30 〜</span> 11:30</p>
+          <button class="screen_button">
+            <img src="/images/dust_icon.png" alt="ゴミ箱アイコン">
+          </button>
+        </div>
+      </div>
+
+    </section>
+
+  </main>
+
+  <!-- ---footer -->
+  <footer onclick="scrollToTop()">
+    <img src="/images/arrow.png" alt="上矢印アイコン">
+    <p>Back top</p>
+  </footer>
+
+
+
+  <!-- orinal javascript file -->
+  <script src="/js/common.js"></script>
+
+  <!-- スケジュール表示 -->
+  <script>
+    const getSchedule = async () => {
+      const result = await axios.get("/api/getSchedule/<%= date %>", {
+        params: {
+          cinemaId: "<%= cinemaId %>"
+        }
+      })
+      console.log(result.data)
+      result.data.forEach((element, index) => {
+        const sec = document.getElementById("screen" + (index + 1))
+        let items = ""
+        if (!element.length) {
+          items = '<p class="screen_none">このスクリーンは現在、スケジュールが登録されていません</p>'
+        }
+        for (let i = 0; i < element.length; i++) {
+          const runs = new Date("2020/12/07 " + element[i].plas)
+          runs.setMinutes(runs.getMinutes() + Number(element[i].runs))
+          const hour = String(runs.getHours())
+          const minute = String(runs.getMinutes())
+          items +=
+            `<div>
+              <h4 onclick="window.location.href = '/admin/production_content/${element[i].movieId}' ">${element[i].movieName}</h4>
+              <p><span>${element[i].plas} 〜</span> ${hour.padStart(2, "0")}:${minute.padStart(2, "0")}</p>
+              <button class="screen_button" onclick="delSchedule(${element[i].runId})">
+                <img src="/images/dust_icon.png" alt="ゴミ箱アイコン">
+              </button>
+            </div>`
+        }
+        sec.innerHTML = items
+      })
+    }
+    getSchedule()
+  </script>
+
+  <!-- 映画スケジュール追加処理 -->
+  <script>
+    const postSchedule = async () => {
+      const postData = {
+        movieId: document.getElementsByName("movieId")[0].value,
+        cinemaId: "<%= cinemaId %>",
+        screen: document.getElementsByName("screen")[0].value,
+        runday: "<%= date %>",
+        plas: document.getElementsByName("hour")[0].value.padStart(2, "0") + ":" + document.getElementsByName("minute")[0].value.padStart(2, "0"),
+      }
+      const result = await axios.post("/admin/screen_schedule/<%= date %>", { ...postData })
+      getSchedule()
+      return false
+    }
+
+    const delSchedule = async (runId) => {
+      const result = await axios.post(`/api/delSchedule/${runId}`)
+      getSchedule()
+    }
+  </script>
+</body>
+
+</html>

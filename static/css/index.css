@@ -1,0 +1,123 @@
+h1{
+    box-sizing: border-box;
+    width: 400px;
+    height: 110px;
+    padding: 20px;
+    color: #fff;
+    text-align: right;
+    background-color: rgba(31, 87, 162, 0.6);
+
+    position: fixed;
+    top: 100px; left: 0;
+    z-index: 5;
+}
+    h1 img{
+        width: 50px;
+        height: 50px;
+        margin-right: 30px;
+        float: right;
+    }
+    h1 p{
+        font-size: 38px;
+        font-weight: 500;
+        line-height: 50px;
+        float: right;
+        z-index: 5;
+    }
+    h1 span{
+        font-size: 14px;
+        font-weight: 500;
+        float: right;
+    }
+article a img{
+    width: 33.33%;
+    height: 100%;
+    object-fit: cover;
+    position: fixed;
+    z-index: 1;
+}
+    #nagoya{
+        top: 0;
+        left: 0;
+    }
+    #osaka{
+        top: 0;
+        left: 0;
+        right: 0;
+        margin: auto;
+    }
+    #tokyo{
+        top: 0;
+        right: 0;
+    }
+    .blackWindow1{
+        width: 33.33333%;
+        height: 100vh;
+        background-color: #000;
+        z-index: 3;
+        position: absolute;
+        top:0;
+        left: 0;
+        opacity: 0.6;
+        transition: 0.5s;
+    }
+    .blackWindow1:hover{
+        opacity: 0;
+    }
+    .blackWindow2{
+        width: 33.33%;
+        height: 100vh;
+        background-color: #000;
+        z-index: 3;
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        margin: auto;
+        opacity: 0.6;
+        transition: 0.5s;
+    }
+    .blackWindow2:hover{
+        opacity: 0;
+    }
+    .blackWindow3{
+        width: 33.33%;
+        height: 100vh;
+        background-color: #000;
+        z-index: 3;
+        position: absolute;
+        top:0;
+        right: 0;
+        opacity: 0.6;
+        transition: 0.5s;
+    }
+    .blackWindow3:hover{
+        opacity: 0;
+    }
+        .area{
+            box-sizing: border-box;
+            width: 33.33%;
+            height: 100px;
+            padding-right: 20px;
+            text-align: right;
+            color: #fff;
+            font-size: 38px;
+            font-weight: 500;
+            line-height: 100px;
+            background-color: rgba(0, 0, 0, 0.6);
+
+            position: fixed;
+            bottom: 100px;
+            z-index: 5;
+        }
+        .h2_nagoya{
+            left: 0;
+        }
+        .h2_osaka{
+            left: 0;
+            right: 0;
+            margin: 0 auto;
+        }
+        .h2_tokyo{
+            right: 0;
+        }

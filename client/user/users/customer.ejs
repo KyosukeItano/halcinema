@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+
+<html lang="ja">
+
+<head>
+
+	<meta charset="utf-8">
+
+	<title>アカウント情報</title>
+
+	<link rel="stylesheet" href="../css/reset.css">
+	<link rel="stylesheet" href="../css/common.css">
+	<link rel="stylesheet" href="../css/customer.css">
+	<link rel="stylesheet" href="../css/modal.css">
+	<% const cinemas = ["TOKYO","OSAKA","NAGOYA"] %>
+</head>
+
+<body>
+
+	<header>
+		<div id="halcinema" onclick="window.location.href = '/home/today_schedule' ">
+			<img src="/images/logo_white.png" alt="ロゴ白">
+			<h1>HAL CINEMA</h1>
+		</div>
+		<button id="pan" onclick="location.href='../home/today_schedule'">＜ホーム画面へ</button>
+		<a id="user" href="../users/customer">
+			<img src="../images/user.png" alt="ユーザー">
+			<div>
+				<p id="ticket">Ticket</p>
+				<p id="profile">Profile</p>
+			</div>
+		</a>
+	</header>
+
+
+	<div id="wrap">
+
+
+		<article>
+			<!-- ここから編集 -->
+
+			<section id="reserve_tikets">
+				<h2>Tikets</h2>
+				<button id="js-show-popup">?</button>
+
+				<% for(item of ticketResult){ %>
+				<% const date = new Date(item.runday) %>
+				<% const endPlas = new Date("2020-09-24" + " " + item.plas + ":00");
+							 endPlas.setMinutes(endPlas.getMinutes() + Number(item.runs))
+				%>
+				<div class="reserve_conts">
+					<img class="poster" src="<%= item.poster %>" alt="ポスター">
+					<div class="right_conts">
+						<p class="cinema">HALCINEMA <%= cinemas[item.cinemaId] %></p>
+						<p class="date">
+							<%= String(date.getFullYear())%>年　<span><%= String(date.getMonth() + 1).padStart(2,"0") %></span>月　<span><%= String(date.getDate()).padStart(2,"0") %></span>日　(日)
+						</p>
+						<h3 class="title">『<%= item.movieName %>』</h3>
+						<div class="time_conts">
+							<img src="../images/clock.png" alt="時計">
+							<p>
+								<span><%= item.plas %></span>　~<%= String(endPlas.getHours()).padStart(2,"0") %>:<%= String(endPlas.getMinutes()).padStart(2,"0") %>
+							</p>
+						</div>
+						<ul class="seatScreen">
+							<% const seatArray = item.seats.split(",") %>
+							<% for(seat of seatArray){ %>
+							<li class="seat"><%= seat %></li>
+							<% } %>
+							<li class="screen">Screen<%= item.screen %></li>
+						</ul>
+					</div>
+				</div>
+
+				<% } %>
+			</section>
+
+
+
+			<section id="user_cont">
+				<div id="option" onclick="location.href='/users/account_edit'">
+					<img src="../images/option.png" alt="設定">
+				</div>
+				<h3>お客様登録情報</h3>
+				<table>
+					<tr>
+						<th>mail</th>
+						<td><%= userData.email %></td>
+					</tr>
+					<tr>
+						<th>pass</th>
+						<td>**********</td>
+					</tr>
+					<tr>
+						<% const birthday = new Date(userData.birth); %>
+						<th>生年月日</th>
+						<td><%= birthday.getFullYear() %>年 <%= String(birthday.getMonth() + 1).padStart(2,"0") %>月
+							<%= String(birthday.getDate()).padStart(2,"0") %>日
+						</td>
+					</tr>
+					<tr>
+						<th>性別</th>
+						<td><%= userData.gender === 0 ? "MAN":"WOMAN" %></td>
+					</tr>
+				</table>
+				<button id="logout" onclick="location.href='/auth/logOut'">ログアウト</button>
+			</section>
+
+
+
+			<section id="reserve_history">
+				<h3>購入履歴</h3>
+				<% for(item of ticketResult){ %>
+				<div class="history">
+					<img src="<%= item.poster %>" alt="ポスター">
+					<div style="width: 100%;">
+						<h4><%= item.movieName %></h4>
+						<% const date = new Date(item.runday); %>
+						<p id="date">
+							<%= date.getFullYear()%>/<%= (String(date.getMonth() + 1)).padStart(2,"0")%>/<%= String(date.getDate()).padStart(2,"0") %>
+						</p>
+					</div>
+				</div>
+				<% } %>
+				<div class="history">
+					<img src="../images/poster02.png" alt="ポスター">
+					<div>
+						<h4>[吹き替え] 映画バットマンthe dark knight rises</h4>
+						<p id="date">2020/05/30</p>
+					</div>
+				</div>
+				<div class="history">
+					<img src="../images/poster03.png" alt="ポスター">
+					<div>
+						<h4>[吹き替え] 映画バットマンthe dark knight rises</h4>
+						<p id="date">2020/05/30</p>
+					</div>
+				</div>
+				<div class="history">
+					<img src="../images/poster04.png" alt="ポスター">
+					<div>
+						<h4>[吹き替え] 映画バットマンthe dark knight rises</h4>
+						<p id="date">2020/05/30</p>
+					</div>
+				</div>
+			</section>
+
+			<!-- ここまでを編集 -->
+		</article>
+
+
+	</div>
+
+
+	<footer id="scrollTop" onclick="scrollToTop()">
+		<div>
+			<img src="../images/arrow.png" alt="ScrollTop">
+			<p>Scroll top</p>
+		</div>
+	</footer>
+
+	<div id="clearEdit">アカウント情報が変更されました。</div>
+
+	<div class="popup" id="js-popup">
+		<div class="popup-inner">
+			<div class="close-btn" id="js-close-btn">☓</div>
+			<img id="img" src="../images/guide1.png" alt="ガイド">
+			<button id="nextBtn" onclick="nextPage()">次へ</button>
+		</div>
+		<div class="black-background" id="js-black-bg"></div>
+	</div>
+	<script src="/js/common.js"></script>
+	<script src="../js/modal.js"></script>
+</body>
+
+</html>

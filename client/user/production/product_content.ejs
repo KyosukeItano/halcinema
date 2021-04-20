@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+
+<html lang="ja">
+
+<head>
+
+	<meta charset="utf-8">
+
+	<title>映画詳細-<%= movieName %>-</title>
+
+	<link rel="stylesheet" href="../css/reset.css">
+	<link rel="stylesheet" href="../css/common.css">
+	<link rel="stylesheet" href="../css/product_content.css">
+
+</head>
+
+<body>
+
+	<header>
+		<div id="halcinema" onclick="window.location.href = '/home/today_schedule'">
+			<img src="../images/logo_white.png" alt="ロゴ白">
+			<h1>HAL CINEMA</h1>
+		</div>
+		<button id="pan" onclick="location.href='/'">＜地域選択画面</button>
+		<a id="login" href="/users/login">Login</a>
+	</header>
+
+
+	<div id="wrap">
+
+		<p id="pan2" onclick="location.href='/home/production_list'">＜　一覧に戻る</p>
+
+		<article>
+			<!-- ここから編集 -->
+
+			<section id="top_cont">
+				<div id="img"><img src="<%= poster %>" alt="<%= poster %>"></div>
+				<div id="right_cont">
+					<div id="time">
+						<img src="/images/time.png" alt="時計">
+						<p>上映<%= runs %>分</p>
+					</div>
+					<div id="title">
+						<h2><%= movieName %></h2>
+						<div id="properties">
+							<p id="rating">レイティング／R<%= rating %>+</p>
+							<p id="director">監督／<%= director %></p>
+						</div>
+					</div>
+					<div id="schedule_cont">
+						<div id="week">
+							<div class="date active">
+								<p>05 / 05(火)</p>
+							</div>
+							<div class="date">
+								<p>05 / 06(水)</p>
+							</div>
+							<div class="date">
+								<p>05 / 07(木)</p>
+							</div>
+							<div class="date">
+								<p>05 / 08(金)</p>
+							</div>
+							<div class="date">
+								<p>05 / 09(土)</p>
+							</div>
+							<div class="date">
+								<p>05 / 10(日)</p>
+							</div>
+							<div class="date">
+								<p>05 / 11(月)</p>
+							</div>
+							<div class="date">
+								<p>05 / 12(火)</p>
+							</div>
+						</div>
+						<div id="time_schedule">
+							<div class="schedule_conts">
+								<p class="time">09 : 25 ～ <span>11:30</span></p>
+								<p class="reserve_btn">座席予約</p>
+							</div>
+							<div class="schedule_conts">
+								<p class="time">11 : 45 ～ <span>13:20</span></p>
+								<p class="end_btn">販売終了</p>
+							</div>
+							<div class="schedule_conts">
+								<p class="time">13 : 35 ～ <span>15:15</span></p>
+								<p class="reserve_btn">座席予約</p>
+							</div>
+							<div class="schedule_conts">
+								<p class="time">15 : 25 ～ <span>17:00</span></p>
+								<p class="end_btn">販売終了</p>
+							</div>
+							<div class="schedule_conts">
+								<p class="time">17 : 20 ～ <span>19:00</span></p>
+								<p class="reserve_btn">座席予約</p>
+							</div>
+							<div class="schedule_conts">
+								<p class="time">19 : 20 ～ <span>21:00</span></p>
+								<p class="end_btn">販売終了</p>
+							</div>
+							<div class="schedule_conts">
+								<p class="time">21 : 20 ～ <span>23:00</span></p>
+								<p class="reserve_btn">座席予約</p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</section>
+			<section id="bottom_cont">
+				<div>
+					<div id="story">
+						<h3>STORY</h3>
+						<p>
+							<%- explain %>
+						</p>
+					</div>
+					<div id="cast">
+						<h3>CAST</h3>
+						<p><%= cast %></p>
+					</div>
+				</div>
+			</section>
+
+
+			<!-- ここまでを編集 -->
+		</article>
+
+		<small>&copy; HAL CINEMA 2020.</small>
+
+	</div>
+
+
+
+	<footer id="scrollTop" onclick="scrollToTop()">
+		<div>
+			<img src="../images/arrow.png" alt="ScrollTop">
+			<p>Scroll top</p>
+		</div>
+	</footer>
+
+	<script src="/js/common.js"></script>
+	<script src="/js/axios.min.js"></script>
+	<script src="/js/jquery.min.js"></script>
+
+	<script>
+		const today = new Date()
+		const day = ['日', '月', '火', '水', '木', '金', '土']
+		let active = 0
+		$("#top_cont").fadeIn(500)
+		$("article").delay(70).animate({ "margin-top": "0px" })
+
+		const createDayBox = () => {
+			const date = new Date()
+			const sec = document.getElementById("week")
+			let items = ""
+			for (let i = 0; i < 8; i++) {
+				items += `<div class="date ${active === i ? 'active' : ''}" onclick="changeDay(${i}, ${date.getFullYear()},${date.getMonth()},${date.getDate()})">
+							<p>${String(date.getMonth() + 1).padStart(2, "0")} / ${String(date.getDate()).padStart(2, "0")} (${day[date.getDay()]})</p>
+						</div>`
+				date.setDate(date.getDate() + 1)
+			}
+			sec.innerHTML = items
+		}
+
+		const getSchedule = async (date) => {
+			console.log(date)
+			const result = await axios.get(`/api/getMovieSchedule`, {
+				params: {
+					movieId: "<%= movieId %>",
+					cinemaId: "<%= cinemaId %>",
+					date
+				}
+			})
+			console.log(result.status)
+			const sec = document.getElementById("time_schedule")
+			if (result.status === 204) {
+				return sec.innerHTML = "<p>地域を選択するとこの映画のスケジュールを表示します</p>"
+			}
+			let items = ""
+			result.data.forEach((element, index) => {
+				if (!element.length) {
+					// 何も入ってなかったとき
+				}
+				const runs = new Date("2020/12/07 " + element.plas)
+				runs.setMinutes(runs.getMinutes() + Number(element.runs))
+				const hour = String(runs.getHours())
+				const minute = String(runs.getMinutes())
+				if (element.seats !== null) {
+					if (element.seats >= 128) {
+						items +=
+							`<div class="schedule_conts" id="element${index}">
+								<p class="time">${element.plas} ～ <span>${hour.padStart(2, "0")}:${minute.padStart(2, "0")}</span></p>
+								<p class="reserve_btn reserve_close">満席</p>
+								</div>`
+					} else {
+						if (element.seats >= 90) {
+							items +=
+								`<div class="schedule_conts" id="element${index}">
+								<p class="time">${element.plas} ～ <span>${hour.padStart(2, "0")}:${minute.padStart(2, "0")}</span></p>
+								<p class="reserve_btn reserve_warning" onclick="window.location.href='/reserve/${element.runId}'">残りわずか</p>
+								</div>`
+						} else {
+							items +=
+								`<div class="schedule_conts" id="element${index}">
+								<p class="time">${element.plas} ～ <span>${hour.padStart(2, "0")}:${minute.padStart(2, "0")}</span></p>
+								<p class="reserve_btn reserve_active" onclick="window.location.href='/reserve/${element.runId}'">座席予約</p>
+								</div>`
+						}
+					}
+				} else {
+					items +=
+						`< div class="screen_conts" id="element${index}">
+								<h3>${element.movieName}</h3>
+								<p>${element.plas} ～ <span>${hour.padStart(2, "0")}:${minute.padStart(2, "0")}</span></p>
+								<div class="reserve_btn reserve_active" onclick="location.href='/reserve/${element.runId}'">
+									座席予約</div>
+								</div >`
+				}
+			})
+			sec.innerHTML = items
+			elementAnimation(result.data.length)
+		}
+
+		const elementAnimation = (length) => {
+			console.log('length', length)
+			for (let i = 0; i < length; i++) {
+				$("#element" + i).delay((i * 70)).slideDown(100)
+			}
+		}
+
+		const changeDay = (i, year, month, date) => {
+			active = i
+			const target = new Date(year, month, date).toLocaleDateString().replace(/\//g, "-")
+			console.log(target)
+			createDayBox(target)
+			getSchedule(target)
+		}
+
+		const now = new Date().toLocaleDateString()
+		createDayBox()
+		getSchedule(now.replace(/\//g, "-"))
+	</script>
+
+
+
+</body>
+
+</html>

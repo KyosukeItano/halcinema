@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <!-- reset css -->
+  <link rel="stylesheet" href="/css/reset.css">
+  <!--共有の -->
+
+  <!-- 共通 css -->
+  <link rel="stylesheet" href="/css/common_admin.css">
+  <!--共有の -->
+
+  <!-- fontawesome -->
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css">
+
+  <title>登録映画一覧 puroduction_list</title>
+
+  <!-- ページ内スタイル -->
+  <style>
+    main {
+      margin: 96px auto 0 auto;
+      padding: 32px 0 24px;
+      width: 80%;
+      max-width: 940px;
+      min-width: 360px;
+      font-size: 1.6rem;
+    }
+
+    .main_head {
+      margin: 12px 0;
+      font-size: 2rem;
+    }
+
+    .top_add {
+      margin: 12px 0 24px;
+      width: 100%;
+      background-color: #7698C5;
+    }
+
+    /* ポスターsection */
+    .poster_sec {
+      display: flex;
+      flex-wrap: wrap;
+    }
+
+    .poster_sec div {
+      position: relative;
+      margin: 16px auto;
+      width: 160px;
+      height: 230px;
+      background-color: #fff;
+      box-shadow: 2px 4px 8px #ddd;
+    }
+
+    .poster_sec div img {
+      position: absolute;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      right: 0;
+      margin: auto;
+      width: 150px;
+      height: 216px;
+      object-fit: cover;
+    }
+
+    .poster_sec div a::before {
+      content: '';
+      position: absolute;
+      z-index: 3;
+      display: block;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, .6);
+      opacity: 0;
+      transition: opacity .3s linear;
+    }
+
+    .poster_sec div a:hover::before {
+      opacity: 1;
+    }
+
+    .poster_sec div a::after {
+      content: 'MORE';
+      position: absolute;
+      z-index: 4;
+      top: 50%;
+      left: 70%;
+      transform: translate(-50%, -50%);
+      display: block;
+      width: 64px;
+      padding: 8px 12px;
+      border: 3px solid white;
+      text-align: center;
+      letter-spacing: 2px;
+      font-size: 1.3rem;
+      opacity: 0;
+      transition: all .2s ease-in-out;
+    }
+
+    .poster_sec div a:hover::after {
+      left: 50%;
+      opacity: 1;
+    }
+
+
+    .poster_sec p {
+      position: absolute;
+      z-index: 2;
+      display: flex;
+      align-items: center;
+      padding: 0 12px;
+      width: 100%;
+      height: 100%;
+      color: white;
+      text-align: center;
+      font-size: 1.2rem;
+      background-color: rgba(0, 0, 0, .6);
+    }
+  </style>
+</head>
+
+<!-- --------------------------body---------------------------------------------------------------------------- -->
+
+<body>
+
+
+  <!-- ---header -->
+  <header>
+    <h1>
+      <a href="/admin">
+        <span class="header-logo">HAL CHINEMA</span>
+        <span class="header-address">NAGOYA</span>
+      </a>
+    </h1>
+    <div>
+      <img src="/images/menu.png" alt="menu" onclick="menuFadeIn()">
+    </div>
+  </header>
+
+  <!-- menu -->
+  <article class="menu" id="menu">
+    <h2>MENU</h2>
+    <ul>
+      <li><a href="/admin" class="link">ホーム</a></li>
+      <li><a href="/admin/mail" class="link">メール作成</a></li>
+      <li><a href="/admin/pdf" class="link">データ分析</a></li>
+      <li><a href="/admin/production_list" class="link">登録映画一覧</a></li>
+      <li><a href="/admin/production_add" class="link">映画追加</a></li>
+      <li class="menu-logout">ログアウト</li>
+    </ul>
+    <img src="/images/menu_close.png" alt="メニュークローズアイコン" class="menu-close" onclick="menuFadeOut()">
+  </article>
+
+  <main>
+    <!-- パンくずリスト -->
+    <p>
+      <a class="link" href="/admin">HOME</a>
+      <span class="link-partition">＞</span>
+      <a class="link" href="/admin/production_list">登録映画一覧</a>
+    </p>
+
+    <h2 class="main_head">登録映画一覧</h2>
+    <p>※ ポスタークリックで
+      <span class="attention-color">映画詳細の確認</span>、
+      <span class="attention-color">編集</span>、
+      <span class="attention-color">消去</span>が行えます。
+    </p>
+    <a href="/admin/production_add"><button class="top_add">映画追加</button></a>
+
+    <!-- 映画ポスター一覧 -->
+    <section class="poster_sec">
+      <!-- poster item -->
+      <%for (const movie of  movieList) {%>
+      <div>
+        <a href="/admin/production_content/<%= movie.movieId %>">
+          <img src="<%= movie.poster %>" alt="<%= movie.movieName%> ">
+        </a>
+      </div>
+      <% } %>
+      <!-- poster item -->
+      <div>
+        <a href="/admin/production_content">
+          <img src="/images/poster/c02.jpg" alt="JOKER">
+        </a>
+      </div>
+      <!-- poster item -->
+      <div>
+        <a href="/admin/production_content">
+          <img src="/images/poster/c03.jpg" alt="君の名は">
+        </a>
+      </div>
+      <!-- poster item -->
+      <div>
+        <a href="/admin/production_content">
+          <img src="/images/poster/c04.jpg" alt="green boys">
+        </a>
+      </div>
+      <!-- poster item -->
+      <div>
+        <a href="/admin/production_content">
+          <img src="/images/poster/c05.jpg" alt="セッション">
+        </a>
+      </div>
+      <!-- poster item -->
+      <div>
+        <a href="/admin/production_content">
+          <img src="/images/poster/c06.jpg" alt="心が叫びたがってるんだ。">
+        </a>
+      </div>
+      <!-- poster item -->
+      <div>
+        <a href="/admin/production_content">
+          <img src="/images/poster/c07.jpg" alt="千と千尋の神隠し">
+        </a>
+      </div>
+      <!-- poster item -->
+      <div>
+        <a href="/admin/production_content">
+          <img src="/images/poster/c08.jpg" alt="新宿スワン">
+        </a>
+      </div>
+      <!-- poster item -->
+      <div>
+        <a href="/admin/production_content">
+          <img src="/images/poster/c09.jpg" alt="VENOM">
+        </a>
+      </div>
+      <!-- poster item -->
+      <div>
+        <a href="/admin/production_content">
+          <img src="/images/poster/c10.jpg" alt="スパイダーマン">
+        </a>
+      </div>
+      <!-- poster item -->
+      <div>
+        <a href="/admin/production_content">
+          <img src="/images/poster/c11.jpg" alt="ハリーポッター">
+        </a>
+      </div>
+      <!-- poster item -->
+      <div>
+        <a href="/admin/production_content">
+          <img src="/images/poster/c12.jpg" alt="映画ドラえもんのび太と月面探索記">
+        </a>
+      </div>
+      <!-- poster item -->
+      <div>
+        <a href="/admin/production_content">
+          <img src="/images/poster/c13.jpg" alt="CHICKEN LITTLE">
+        </a>
+      </div>
+      <!-- poster item -->
+      <div>
+        <a href="/admin/production_content">
+          <img src="/images/poster/c14.jpg" alt="エイリアンvsプレデター">
+        </a>
+      </div>
+      <!-- poster item -->
+      <div>
+        <a href="/admin/production_content">
+          <img src="/images/poster/c15.jpg" alt="バットマン">
+        </a>
+      </div>
+      <!-- poster item -->
+      <div>
+        <a href="/admin/production_content">
+          <img src="/images/poster/c16.jpg" alt="美女と野獣">
+        </a>
+      </div>
+      <!-- poster item -->
+      <div>
+        <a href="/admin/production_content">
+          <img src="/images/poster/c17.jpg" alt="LEON">
+        </a>
+      </div>
+      <!-- poster item -->
+      <div>
+        <a href="/admin/production_content">
+          <img src="/images/poster/c18.jpg" alt="ハンガーゲーム">
+        </a>
+      </div>
+      <!-- poster item -->
+      <div>
+        <a href="/admin/production_content">
+          <img src="/images/poster/c19.jpg" alt="チャーリーとチョコレート工場">
+        </a>
+      </div>
+      <!-- poster item -->
+      <div>
+        <a href="/admin/production_content">
+          <img src="/images/poster/c20.jpg" alt="クローズ2">
+        </a>
+      </div>
+
+
+
+
+    </section>
+
+  </main>
+
+
+
+
+
+  <!-- ---footer -->
+  <footer onclick="scrollToTop()">
+    <img src="/images/arrow.png" alt="上矢印アイコン">
+    <p>Back top</p>
+  </footer>
+
+
+
+
+
+  <!-- orinal javascript file -->
+  <script src="/js/common.js"></script>
+</body>
+
+</html>

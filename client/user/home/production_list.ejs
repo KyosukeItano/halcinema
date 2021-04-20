@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+
+<html lang="ja">
+
+<head>
+	<% const month = new Date().getMonth() + 1; %>
+	<% const date = new Date().getDate(); %>
+	<meta charset="utf-8">
+
+	<title>上映映画一覧</title>
+
+	<link rel="stylesheet" href="../css/reset.css">
+	<link rel="stylesheet" href="../css/common.css">
+	<link rel="stylesheet" href="../css/list.css">
+	<% const path = ["hal_tokyo.png","hal_osaka.png","hal_nagoya.png"] %>
+</head>
+
+<body style="background-image: url('../images/<%= path[cinemaId] %>');">
+	<style>
+		body {
+			background-image: url("../images/hal_nagoya.png");
+			background-repeat: no-repeat;
+			background-attachment: fixed;
+			background-position: right bottom;
+		}
+	</style>
+
+	<header>
+		<div id="halcinema" onclick="window.location.href = '/home/today_schedule'">
+			<img src="../images/logo_white.png" alt="ロゴ白">
+			<h1>HAL CINEMA</h1>
+		</div>
+		<button id="pan" onclick="location.href='/'">＜地域選択画面</button>
+		<a id="login" href="/users/login">Login</a>
+	</header>
+
+	<div id="wrap">
+
+		<nav>
+			<ul>
+				<li class="li_style nav_active">上映映画一覧</li>
+				<li class="schedule_style" onclick="location.href='/home/today_schedule'">
+					<div id="when">
+						<div id="month"><%= String(month).padStart(2,"0") %></div>
+						<div id="day"><%= String(date).padStart(2,"0") %></div>
+					</div>
+					<div id="schedule">上映スケジュール</div>
+				</li>
+				<li class="li_style" onclick="location.href='/home/release_list'">公開予定映画</li>
+			</ul>
+		</nav>
+
+
+
+		<article>
+			<!-- ここから編集 -->
+			<div class="poster_sec">
+				<% for(let i = 0; i<movieList.length ;i++){ %>
+				<div id="poster<%= i + 1 %>" class="posters">
+					<a href="/production/<%= movieList[i].movieId %>">
+						<img src="<%= movieList[i].poster %>" alt="<%= movieList[i].movieName %>">
+					</a>
+				</div>
+				<% } %>
+			</div>
+
+			<!-- ここまでを編集 -->
+		</article>
+
+		<style>
+			a {
+				text-decoration: none;
+				color: #fff;
+				font-weight: normal;
+			}
+
+			.poster_sec {
+				min-height: 60vh;
+				display: flex;
+				justify-content: flex-start;
+				align-items: flex-start;
+				flex-wrap: wrap;
+			}
+
+			.poster_sec div {
+				position: relative;
+				margin: 16px 20px;
+				width: 210px;
+				height: 286px;
+				background-color: #fff;
+				box-shadow: 2px 4px 8px #ddd;
+			}
+
+			.poster_sec div img {
+				position: absolute;
+				top: 0;
+				left: 0;
+				bottom: 0;
+				right: 0;
+				margin: auto;
+				width: 200px;
+				height: 278px;
+				object-fit: cover;
+			}
+
+			.poster_sec div a::before {
+				content: '';
+				position: absolute;
+				z-index: 3;
+				display: block;
+				width: 100%;
+				height: 100%;
+				background-color: rgba(0, 0, 0, .6);
+				opacity: 0;
+				transition: opacity .3s linear;
+			}
+
+			.poster_sec div a:hover::before {
+				opacity: 1;
+			}
+
+			.poster_sec div a::after {
+				content: 'MORE';
+				position: absolute;
+				z-index: 4;
+				top: 50%;
+				left: 70%;
+				transform: translate(-50%, -50%);
+				display: block;
+				width: 64px;
+				padding: 8px 12px;
+				border: 3px solid white;
+				text-align: center;
+				letter-spacing: 2px;
+				font-size: 1.3rem;
+				opacity: 0;
+				transition: all .2s ease-in-out;
+			}
+
+			.poster_sec div a:hover::after {
+				left: 50%;
+				opacity: 1;
+			}
+
+
+			.poster_sec p {
+				position: absolute;
+				z-index: 2;
+				display: flex;
+				align-items: center;
+				padding: 0 12px;
+				width: 100%;
+				height: 100%;
+				color: white;
+				text-align: center;
+				font-size: 1rem;
+				background-color: rgba(0, 0, 0, .6);
+			}
+		</style>
+
+
+
+		<small>&copy; HAL CINEMA 2020.</small>
+	</div>
+
+
+
+	<footer id="scrollTop" onclick="scrollToTop()">
+		<div>
+			<img src="../images/arrow.png" alt="ScrollTop">
+			<p>Scroll top</p>
+		</div>
+	</footer>
+
+	<script src="/js/common.js"></script>
+	<script src="/js/jquery.min.js"></script>
+	<script>
+		const length = Number("<%= movieList.length %>")
+		for (let i = 0; i < length; i++) {
+			console.log(length)
+			$("#poster" + (i + 1)).delay((70 * i)).animate({ opacity: "1" }, 200)
+		}
+	</script>
+
+
+</body>
+
+</html>

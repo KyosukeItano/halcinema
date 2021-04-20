@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+
+<html lang="ja">
+
+<head>
+
+	<meta charset="utf-8">
+
+	<title>クレジット情報入力</title>
+
+	<link rel="stylesheet" href="../css/reset.css">
+	<link rel="stylesheet" href="../css/common.css">
+	<link rel="stylesheet" href="../css/reserve.css">
+	<link rel="stylesheet" href="../css/credit.css">
+
+</head>
+
+<body>
+
+	<header>
+		<div id="halcinema" onclick="window.location.href = '/home/today_schedule'">
+			<img src="../images/logo_white.png" alt="ロゴ白">
+			<h1>HAL CINEMA</h1>
+		</div>
+		<button id="pan" onclick="location.href='/'">＜地域選択画面</button>
+	</header>
+
+
+	<div id="wrap">
+
+
+		<article>
+			<!-- ここから編集 -->
+
+			<section id="buy_cont">
+				<h2>クレジットカード情報の入力</h2>
+				<div class="buy_conts">
+					<img class="poster" src="../images/poster03.png" alt="ポスター">
+					<div class="right_conts">
+						<p class="cinema">HALCINEMA TOKYO</p>
+						<p class="date">2020年　<span>06</span>月　<span>06</span>日　(日)</p>
+						<h3 class="title">『映画ドラえもん　のび太の月面探査記』</h3>
+						<div class="time_conts">
+							<img src="../images/clock.png" alt="時計">
+							<p><span>9:00</span>　~11:10</p>
+						</div>
+						<ul class="seatScreen">
+							<li class="seat">B-06</li>
+							<li class="seat">B-07</li>
+							<li class="seat">B-09</li>
+							<li class="price"><span>合計</span>(税込)\4,200</li>
+						</ul>
+					</div>
+				</div>
+				<form action="">
+					<table id="credit_cont">
+						<tr>
+							<th><label for="credit_number"><span>※</span> カード番号</label></th>
+							<td>
+								<input type="text" maxlength="4" class="credit_number">-
+								<input type="text" maxlength="4" class="credit_number">-
+								<input type="text" maxlength="4" class="credit_number">-
+								<input type="text" maxlength="4" class="credit_number">
+							</td>
+						</tr>
+						<tr>
+							<th><label for="expiration_date"><span>※</span> カード有効期限</label></th>
+							<td>
+								<select required>
+									<option value="">--</option>
+									<option value="1">01</option>
+									<option value="2">02</option>
+									<option value="3">03</option>
+									<option value="4">04</option>
+									<option value="5">05</option>
+									<option value="6">06</option>
+									<option value="7">07</option>
+									<option value="8">08</option>
+									<option value="9">09</option>
+									<option value="10">10</option>
+									<option value="11">11</option>
+									<option value="12">12</option>
+								</select>　月
+								<select required>
+									<option value="">--</option>
+									<option value="2020">20</option>
+									<option value="2021">21</option>
+									<option value="2022">22</option>
+									<option value="2023">23</option>
+									<option value="2024">24</option>
+									<option value="2025">25</option>
+									<option value="2026">26</option>
+									<option value="2027">27</option>
+									<option value="2028">28</option>
+									<option value="2029">29</option>
+									<option value="2030">30</option>
+									<option value="2031">31</option>
+									<option value="2032">32</option>
+									<option value="2033">33</option>
+									<option value="2034">34</option>
+									<option value="2035">35</option>
+									<option value="2036">36</option>
+									<option value="2037">37</option>
+									<option value="2038">38</option>
+									<option value="2039">39</option>
+									<option value="2040">40</option>
+									<option value="2041">41</option>
+									<option value="2042">42</option>
+									<option value="2043">43</option>
+									<option value="2044">44</option>
+									<option value="2045">45</option>
+									<option value="2046">46</option>
+									<option value="2047">47</option>
+								</select>　年
+							</td>
+						</tr>
+						<tr>
+							<th><label for="security_cord"><span>※</span> セキュリティコード</label></th>
+							<td>
+								<input type="password" id="security_cord" maxlength="3" placeholder="123" required>
+							</td>
+						</tr>
+					</table>
+					<div id="cont_right">
+						<input type="submit" onclick="history.back()" value="再選択" id="back">
+						<input type="submit" value="購入" id="create">
+					</div>
+				</form>
+			</section>
+
+			<!-- ここまでを編集 -->
+		</article>
+
+
+	</div>
+
+
+
+	<footer id="copyRight">
+		<small>&copy; HAL CINEMA 2020.</small>
+	</footer>
+
+
+
+</body>
+
+</html>

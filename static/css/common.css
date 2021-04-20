@@ -1,0 +1,282 @@
+@charset "utf-8";
+
+/* 共通のスタイル */
+html {
+  font-family: "游ゴシック体", YuGothic, "游ゴシック", "Yu Gothic", sans-serif;
+  font-weight: 600;
+}
+body {
+  width: 100%;
+  height: auto;
+  background-color: #fafafa;
+}
+header {
+  width: 100%;
+  height: 80px;
+  color: white;
+  background-color: #333;
+
+  display: flex;
+  justify-content: flex-start;
+}
+div#halcinema {
+  width: 210px;
+  height: 36px;
+  margin: 10px 0 0 15px;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+div#halcinema img {
+  width: 36px;
+  height: 36px;
+}
+div#halcinema h1 {
+  font-size: 24px;
+}
+header button#pan {
+  width: 100px;
+  height: 20px;
+  font-size: 14px;
+  font-weight: 400;
+  color: #fff;
+  cursor: pointer;
+
+  position: absolute;
+  top: 50px;
+  left: 125px;
+}
+header a#login {
+  height: 80px;
+  line-height: 80px;
+  color: #fff;
+  font-size: 20px;
+  margin-right: 72px;
+  cursor: pointer;
+}
+header a#login:hover {
+  transition: 0.5s;
+  opacity: 0.7;
+}
+header a#user {
+  display: inline-flex;
+  width: 120px;
+  height: 50px;
+  color: #555;
+  font-size: 14px;
+  font-weight: 500;
+  margin-top: 15px;
+  margin-right: 15px;
+  cursor: pointer;
+
+  position: relative;
+}
+header a#user:hover {
+  transition: 0.5s;
+  opacity: 0.7;
+}
+header a#user img {
+  width: 50px;
+  height: 50px;
+  color: #fff;
+
+  position: absolute;
+  left: 0;
+  z-index: 2;
+}
+header a#user div {
+  width: 85px;
+  height: 40px;
+  background-color: #fff;
+
+  position: absolute;
+  top: 5px;
+  right: 0;
+  z-index: 1;
+}
+p#ticket {
+  position: absolute;
+  left: 20px;
+  top: 5px;
+}
+p#profile {
+  position: absolute;
+  right: 5px;
+  bottom: 5px;
+}
+header a:last-of-type {
+  margin-left: auto;
+}
+
+#wrap {
+  width: 1280px;
+  height: auto;
+  margin: 0 auto;
+}
+
+#pan:hover {
+  transition: 0.5s;
+  opacity: 0.7;
+}
+ul {
+  display: flex;
+  justify-content: center;
+  margin: 63px;
+}
+.schedule_style,
+.li_style {
+  width: 280px;
+  height: 40px;
+  color: #aaa;
+  letter-spacing: 1px;
+  text-align: center;
+  font-size: 16px;
+  background-color: #fff;
+  box-shadow: 0px 4px 0 #ddd;
+  border: 0.5px solid #ddd;
+  cursor: pointer;
+}
+.schedule_style:hover,
+.li_style:hover {
+  transition: 0.5s;
+  color: #777;
+  box-shadow: 0px 4px 0 #7698c5;
+}
+.schedule_style {
+  position: relative;
+}
+.li_style {
+  line-height: 40px;
+}
+.nav_active {
+  color: #777;
+  box-shadow: 0px 4px 0 #7698c5;
+}
+#when {
+  width: 30px;
+  height: 20px;
+  margin: 0 0 0 30px;
+  background-image: url("../images/day_line.png");
+  background-position: center;
+  background-size: 20px 20px;
+  background-repeat: no-repeat;
+
+  position: absolute;
+  top: 10px;
+}
+#month,
+#day {
+  width: auto;
+  height: 10px;
+  font-size: 10px;
+
+  position: absolute;
+}
+#month {
+  top: 0;
+  left: 0;
+}
+#day {
+  right: 0;
+  bottom: 0;
+}
+#schedule {
+  line-height: 40px;
+}
+
+footer#scrollTop {
+  width: 100%;
+  height: 40px;
+  color: white;
+  font-weight: 400;
+  background-color: #333;
+  cursor: pointer;
+  transition: opacity 0.3s;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+footer#scrollTop:hover {
+  opacity: 0.7;
+}
+footer#scrollTop div {
+  width: 70px;
+}
+footer#scrollTop div img {
+  margin-left: 19px;
+}
+
+small {
+  display: block;
+  width: 100%;
+  height: auto;
+  margin: 50px 0;
+  text-align: center;
+  font-size: 12px;
+  color: #999;
+  font-weight: 400;
+}
+
+footer#copyRight {
+  width: 100%;
+  height: 40px;
+  line-height: 40px;
+  background-color: #333;
+
+  position: fixed;
+  bottom: 0;
+}
+footer#copyRight small {
+  margin: 0;
+}
+
+/* スタイルリセット */
+a {
+  text-decoration: none;
+}
+input[type="button"],
+input[type="text"],
+input[type="password"],
+input[type="submit"] {
+  appearance: none;
+  border-radius: 0;
+  font: inherit;
+  outline: none;
+  background-color: #fafafa;
+  border: 0.5px solid #ddd;
+}
+input[type="text"],
+input[type="password"] {
+  padding: 10px;
+  height: 20px;
+}
+input[type="submit"],
+input[type="button"] {
+  border: none;
+}
+select {
+  appearance: none;
+  border-radius: 0;
+  color: #777;
+  width: 80px;
+  height: 40px;
+  padding: 10px;
+  background-color: #fafafa;
+  border: 0.5px solid #ddd;
+}
+
+textarea {
+  resize: vertical;
+}
+
+button {
+  font-family: "游ゴシック体", YuGothic, "游ゴシック", "Yu Gothic", sans-serif;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  outline: none;
+  padding: 0;
+  appearance: none;
+}

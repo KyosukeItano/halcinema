@@ -1,0 +1,112 @@
+/* schedule.css */
+article {
+  min-height: 110vh;
+}
+#date_cont {
+  width: 1000px;
+  margin: 13px auto;
+  color: #aaa;
+  display: flex;
+  justify-content: flex-start;
+}
+.date {
+  width: 80px;
+  height: 40px;
+  margin-right: 20px;
+  padding: 2px 5px;
+  font-size: 12px;
+  font-weight: 600;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  cursor: pointer;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.date:hover {
+  transition: 0.5s;
+  color: #fff;
+  background-color: #c5767c;
+}
+.date p {
+  padding: 5px 0;
+  border-bottom: 1px solid #ddd;
+}
+.date_active {
+  color: #fff;
+  background-color: #c5767c;
+  border-style: none;
+}
+
+.screen {
+  display: none;
+  box-sizing: border-box;
+  width: 1280px;
+  height: 210px;
+  text-align: center;
+  padding: 20px 29px;
+  margin-bottom: 20px;
+  background-color: #fff;
+  border: 0.5px solid #ddd;
+  border-radius: 6px;
+}
+.screen h2 {
+  font-size: 20px;
+  color: #aaa;
+}
+#screen_cont {
+  width: 100%;
+  margin-top: 10px;
+  display: flex;
+  justify-content: flex-start;
+}
+.screen_conts {
+  width: 180px;
+  height: 130px;
+  margin-right: 10px;
+  color: #777;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+}
+.screen_conts h3 {
+  width: 160px;
+  margin: 0 auto;
+  font-size: 12px;
+  font-weight: 500;
+  padding: 25px 0 10px 0;
+  border-bottom: 1px solid #ddd;
+}
+.screen_conts p {
+  font-size: 20px;
+  padding-top: 10px;
+}
+.screen_conts p span {
+  font-size: 14px;
+  font-weight: 400;
+}
+.reserve_btn {
+  width: 160px;
+  height: 25px;
+  line-height: 25px;
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 1px;
+  margin: 12px auto 0 auto;
+  color: #fff;
+  background-color: #ddd;
+  border-radius: 8px;
+}
+.reserve_active {
+  cursor: pointer;
+  background-color: #7698c5;
+}
+.reserve_warning {
+  cursor: pointer;
+  background-color: #f1c40e;
+}
+.reserve_active:hover {
+  transition: 0.5s;
+  opacity: 0.7;
+}

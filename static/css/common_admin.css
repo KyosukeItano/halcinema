@@ -1,0 +1,297 @@
+@charset "utf-8";
+
+/* 共通のスタイル */
+*{
+  box-sizing: border-box;
+}
+html{
+  font-size: 62.5%;
+}
+body{
+  background-color: #fafafa;
+  color: #707070;
+}
+
+/*------------- css----------*/
+/* ---text color ----------*/
+.attention-color{
+  color: #C5767C;
+}
+.primary-color{
+  color: #7698C5;
+}
+/* ---button ----------*/
+button{
+  font-weight: bold;
+  height: 40px;
+  border-radius: 20px;
+  color: #fff;
+  background-color: #aaa;
+  border-style: none;
+  transition: opacity .3s;
+  cursor: pointer;
+}
+button:hover{
+  opacity: .7;
+}
+.button{
+  display: inline-block;
+  font-weight: bold;
+  height: 40px;
+  line-height: 40px;
+  border-radius: 20px;
+  color: #fff;
+  background-color: #aaa;
+  border-style: none;
+  transition: opacity .3s;
+  cursor: pointer;
+}
+.button:hover{
+  opacity: .7;
+}
+
+/* ---modal ----------*/
+.modal-black{
+  /* 最初は非表示 */
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color:rgba(0, 0, 0, 0.6);
+}
+.modal-white{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  background-color: #fafafa;
+  width: 70%;
+  min-width: 350px;
+  max-width: 520px;
+  height: 280px;
+  border-radius: 20px;
+  text-align: center;
+}
+
+.modal-white h3{
+  margin-top: 80px;
+  font-size: 1.6rem;
+}
+.modal-white p{
+  margin: 16px 0;
+  font-size: 1.2rem;
+}
+.modal-white button,.modal-white .button{
+  margin-top: 40px;
+  width: 140px;
+  font-size: 1.6rem;
+}
+.modal_submit{
+  background-color: #C5767C;
+  margin-left: 12px;
+}
+
+/* ---a(link) ----------*/
+a:link{color: white; text-decoration: none;}
+a:visited{color: white; text-decoration: none;}
+a:active{color: #eee;}
+.link:link{
+  color: #aaa; 
+  text-decoration: none; 
+  cursor: pointer; 
+  transition: color .3s;
+}
+.link:visited{
+  color: #aaa; 
+  text-decoration: none; 
+  cursor: pointer; 
+  transition: color .3s;
+}
+.link:hover{color: #777;}
+.link:active{color: #aaa;}
+.link-partition{color: #aaa;}
+
+/* ---header ----------*/
+header{
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 100;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding: 0 28px;
+  height: 80px;
+  background-color: #fff;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+}
+header a{
+  color: #fafafa;
+  text-shadow: 0 2px 3px #ccc;
+  text-decoration: none;
+  transition: text-shadow .3s;
+}
+header a:hover{
+  text-shadow: 0 2px 6px #bbb;
+}
+.header-logo{
+  font-size: 3.2rem;
+}
+.header-address{
+  font-size: 4rem;
+}
+header img{
+  transition: opacity .5s;
+  cursor: pointer;
+}
+header img:hover{
+  opacity: .4;
+}
+/* --header内 MENU */
+.menu{
+  display: none;
+  position: fixed;
+  z-index: 100;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background-color: #fff;
+  text-align: center;
+  font-size: 1.6rem;
+}
+.menu-close{
+  position: absolute;
+  top: 20px;
+  right: 24px;
+  cursor: pointer;
+  transition: opacity .3s;
+}
+.menu-close:hover{
+  opacity: .7;
+}
+.menu h2{
+  height: 80px;
+  line-height: 80px;
+  border: 1px solid #ccc;
+}
+.menu ul{
+  list-style: none;
+}
+.menu a{
+  display: inline-block;
+  width: 100%;
+  height: 60px;
+  line-height: 60px;
+  border: 1px solid #eee;
+}
+.menu a:hover{
+  background-color: #f0f0f0;
+  font-weight: bold;
+}
+.menu-logout{
+  display: inline-block;
+  width: 100%;
+  height: 60px;
+  line-height: 60px;
+  border: 1px solid #eee;
+  color: #aaa;
+  cursor: pointer;
+  transition: background-color .3s,
+  color .3s,
+  font-weight .3s;
+}
+.menu-logout:hover{
+  background-color: #f0f0f0;
+  color: #707070;
+  font-weight: bold;
+}
+/* ---footer ----------*/
+footer{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 40px;
+  background-color: #333;
+  color: white;
+  cursor: pointer;
+  transition: opacity .3s;
+}
+footer:hover{
+  opacity: .7;
+}
+footer img{
+  width: 30px;
+  height: auto;
+  margin-bottom: 2px;
+}
+
+/* ---production 映画詳細・追加・編集 ----------*/
+
+.production-main{
+  margin: 130px auto 20px auto;
+  width: 90%;
+  max-width: 1200px;
+  min-width: 350px;
+  min-height: 800px;
+  font-size: 1.4rem;
+}
+.production-main h2{
+  font-size: 1.6rem;
+}
+.product-pankuzu{
+  margin-bottom: 24px;
+}
+.product-block{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+.product-sec{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  padding: 28px 32px;
+  width: 350px;
+  min-height: 640px;
+  background-color: white;
+  box-shadow: 2px 4px 8px #ddd;
+}
+.product-sec input,textarea{
+  padding: 4px 8px;
+  line-height: 1.4;
+}
+.product-sec textarea{
+  margin-top: 8px;
+}
+.product-sec input::placeholder,textarea::placeholder{
+  color: #ccc;
+}
+.product-clock{
+  width: 20px;
+  height: 20px;
+}
+.product-poster{
+  width: 240px;
+  height: 346px;
+  object-fit: cover;
+
+}
+#preview{
+  cursor: pointer;
+  transition: opacity .3s;
+}
+#preview:hover{
+  opacity: .4;
+}
+
+.product-button{
+  min-width: 350px;
+}
+.product-button button{
+  width: 100%;
+  margin-top: 20px;
+}

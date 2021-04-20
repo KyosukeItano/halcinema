@@ -1,0 +1,272 @@
+#reserve_tikets{
+    width: 800px;
+    height: auto;
+    margin: 80px 0;
+    float: left;
+
+    position: relative;
+}
+    #reserve_tikets h2{
+        color: #777;
+        font-size: 26px;
+        font-weight: 500;
+    }
+        #js-show-popup{
+            width: 50px;
+            height: 50px;
+            text-align: center;
+            line-height: 50px;
+            color: #fff;
+            font-size: 26px;
+            font-weight: 500;
+            cursor: pointer;
+            background-color: #7698C5;
+            border-radius: 25px;
+            box-shadow: 2px 4px 8px #00000029;
+
+            position: absolute;
+            top: 0; right: 0;
+            z-index: 2;
+        }
+        #question:hover{
+            transition: 0.5s;
+            opacity: 0.7;
+        }
+    .reserve_conts{
+        width: 760px;
+        height: 180px;
+        padding: 10px;
+        margin-bottom: 30px;
+        background-color: #fff;
+        box-shadow: 2px 4px 8px #00000029;
+
+        display: flex;
+        justify-content: space-between;
+    }
+        .poster{
+            height: 180px;
+            box-shadow: 2px 4px 8px #00000029;
+        }
+        .right_conts{
+            width: 610px;
+            height: 180px;
+        }
+            .cinema{
+                width: 580px;
+                text-align: right;
+                color: #ddd;
+                font-weight: 500;
+            }
+            .date{
+                color: #777;
+                font-weight: 500;
+                margin-top: 10px;
+            }
+                .date span{
+                    font-size: 26px;
+                }
+            .title{
+                color: #777;
+                margin: 15px 0;
+                font-size: 1.2em;
+                font-weight: 500;
+            }
+            .time_conts{
+                width: 150px;
+                height: 30px;
+
+                display: flex;
+            }
+                .time_conts img{
+                    width: 20px;
+                    height: 20px;
+                    margin: 5px 10px 0 0;
+                }
+                .time_conts p{
+                    width: 130px;
+                    height: 30px;
+                    color: #777;
+                    line-height: 30px;
+                    font-size: 0.8em;
+                    font-weight: 500;
+                }
+                .time_conts p span{
+                    color: #7698C5;
+                    font-size: 1.4em;
+                }
+            .seatScreen{
+                width: 610px;
+                height: 30px;
+                margin: 10px 0 0 0;
+                list-style: none;
+                text-align: center;
+                color: #fff;
+                font-weight: 500;
+                line-height: 30px;
+                
+                justify-content: flex-start;
+            }
+                .seat{
+                    width: 70px;
+                    margin: 0 10px 0 0;
+                    background-color: #333;
+                    border-radius: 15px;
+                    font-size: 0.9em;
+                }
+                .screen{
+                    width: 120px;
+                    margin: 0 10px 0 0;
+                    background-color: #777;
+                    margin-left: auto;
+                    border-radius: 15px;
+                    font-size: 0.9em;
+                }
+                .waive{
+                    color: #777;
+                    font-size: 30px;
+                    margin-right: 10px;
+                }
+
+#user_cont{
+    box-sizing: border-box;
+    width: 430px;
+    height: 300px;
+    margin: 106px 0 0 50px;
+    padding: 30px 60px;
+    box-shadow: 2px 4px 8px #00000029;
+    float: left;
+
+    position: relative;
+}
+    #option{
+        width: 50px;
+        height: 50px;
+        cursor: pointer;
+        background-color: #aaa;
+        border-radius: 25px;
+        box-shadow: 2px 4px 8px #00000029;
+
+        position: absolute;
+        top: -26px; right: -26px;
+        z-index: 2;
+    }
+    #option:hover{
+        transition: 0.5s;
+        opacity: 0.7;
+    }
+        #option img{
+            width: 50px;
+            height: 50px;
+        }
+        #user_cont h3{
+            text-align: center;
+            color: #777;
+            font-size: 1.2em;
+            font-weight: 500;
+        }
+        #user_cont table{
+            width: 100%;
+            height: auto;
+            margin-top: 20px;
+            font-size: 0.9em;
+        }
+            #user_cont table tr{
+                width: 100%;
+                height: 40px;
+                color: #777;
+                display: flex;
+                align-items: center;
+            }
+                #user_cont table tr th{
+                    width: 25%;
+                    height: 15px;
+                    text-align: left;
+                    font-weight: 500;
+                }
+                #user_cont table tr td{
+                    width: 75%;
+                    height: 15px;
+                    font-weight: 500;
+                    border-bottom: 0.5px solid #ddd;
+                }
+    #logout{
+        width: 100%;
+        height: 32px;
+        margin-top: 15px;
+        color: #fff;
+        border-radius: 16px;
+        background-color: #aaa;
+    }
+    #logout:hover{
+        transition: 0.5s;
+        opacity: 0.7;
+    }
+
+
+
+#reserve_history{
+    box-sizing: border-box;
+    width: 430px;
+    height: auto;
+    margin: 30px 0 50px 50px;
+    padding: 30px 10px;
+    box-shadow: 2px 4px 8px #00000029;
+    float: left;
+}
+    #reserve_history h3{
+        width: 100%;
+        height: 30px;
+        text-align: center;
+        color: #777;
+        font-weight: 500;
+        border-bottom: 0.5px solid #ddd;
+    }
+    .history{
+        box-sizing: border-box;
+        width: 100%;
+        padding: 10px;
+        border-bottom: 0.5px solid #ddd;
+
+        display: flex;
+    }
+        .history img{
+            height: 130px;
+        }
+        .history div{
+            margin-left: 10px;
+            padding: 10px;
+
+            position: relative;
+        }
+            .history div h4{line-height: 24px;
+                font-weight: 500;
+                color: #777;
+            }
+            .history div p{
+                font-size: 0.8em;
+                font-weight: 500;
+                color: #777;
+
+                position: absolute;
+                right: 0; bottom: 0;
+            }
+
+            
+#clearEdit{
+    display: none;
+    width: 100%;
+    height: 50px;
+    color: #fff;
+    font-weight: 500;
+    font-size: 1.2em;
+    text-align: center;
+    line-height: 50px;
+    background-color: rgba(51, 51, 51, 0.6);
+
+    position: fixed;
+    bottom: 0;
+}
+
+
+
+

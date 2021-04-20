@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+
+<html lang="ja">
+
+<head>
+
+	<meta charset="utf-8">
+
+	<title>HALシネマ<%= cinemaName %> -上映スケジュール-</title>
+	<% const month = new Date().getMonth() + 1; %>
+	<% const date = new Date().getDate(); %>
+	<link rel="stylesheet" href="../css/reset.css">
+	<link rel="stylesheet" href="../css/common.css">
+	<link rel="stylesheet" href="../css/schedule.css">
+	<% const path = ["hal_tokyo.png","hal_osaka.png","hal_nagoya.png"] %>
+</head>
+
+<body style="background-image: url('../images/<%= path[cinemaId] %>');">
+
+	<style>
+		body {
+			background-image: url("../images/hal_nagoya.png");
+			background-repeat: no-repeat;
+			background-attachment: fixed;
+			background-position: right bottom;
+		}
+	</style>
+
+	<header>
+		<div id="halcinema" onclick="window.location.href = '/home/today_schedule'">
+			<img src="../images/logo_white.png" alt="ロゴ白">
+			<h1>HAL CINEMA</h1>
+		</div>
+		<button id="pan" onclick="location.href='/'">＜地域選択画面</button>
+		<a id="user" href="../users/customer">
+			<img src="../images/user.png" alt="ユーザー">
+			<div>
+				<p id="ticket">Ticket</p>
+				<p id="profile">Profile</p>
+			</div>
+		</a>
+	</header>
+
+
+	<div id="wrap">
+
+		<nav>
+			<ul>
+				<li class="li_style" onclick="location.href='/home/production_list'">上映映画一覧</li>
+				<li class="schedule_style nav_active">
+					<div id="when">
+						<div id="month"><%= String(month).padStart(2,"0") %></div>
+						<div id="day"><%= String(date).padStart(2,"0") %></div>
+					</div>
+					<div id="schedule">上映スケジュール</div>
+				</li>
+				<li class="li_style" onclick="location.href='/home/release_list'">公開予定映画</li>
+			</ul>
+		</nav>
+
+
+
+		<article>
+			<!-- ここから編集 -->
+			<section id="date_cont">
+				<div class="date date_active">
+					<p>05 / 05 (火)</p>
+				</div>
+				<div class="date">
+					<p>05 / 06 (水)</p>
+				</div>
+				<div class="date">
+					<p>05 / 07 (木)</p>
+				</div>
+				<div class="date">
+					<p>05 / 08 (金)</p>
+				</div>
+				<div class="date">
+					<p>05 / 09 (土)</p>
+				</div>
+				<div class="date">
+					<p>05 / 10 (日)</p>
+				</div>
+				<div class="date">
+					<p>05 / 11 (月)</p>
+				</div>
+				<div class="date">
+					<p>05 / 12 (火)</p>
+				</div>
+			</section>
+
+			<section class="screen" id="screen1">
+				<h2>SCREEN 01</h2>
+				<div id="screen_cont" class="screen1">
+					<div class="screen_conts">
+						<h3>ハーレイ・クインの華麗…</h3>
+						<p>09:25 ～ <span>12:00</span></p>
+						<div class="reserve_btn reserve_active" onclick="location.href='../reserve/product_seat.html'">
+							座席予約</div>
+					</div>
+					<div class="screen_conts">
+						<h3>ハーレイ・クインの華麗…</h3>
+						<p>09:25 ～ <span>12:00</span></p>
+						<div class="reserve_btn">販売終了</div>
+					</div>
+					<div class="screen_conts">
+						<h3>ハーレイ・クインの華麗…</h3>
+						<p>09:25 ～ <span>12:00</span></p>
+						<div class="reserve_btn">販売終了</div>
+					</div>
+					<div class="screen_conts">
+						<h3>ハーレイ・クインの華麗…</h3>
+						<p>09:25 ～ <span>12:00</span></p>
+						<div class="reserve_btn">販売終了</div>
+					</div>
+					<div class="screen_conts">
+						<h3>ハーレイ・クインの華麗…</h3>
+						<p>09:25 ～ <span>12:00</span></p>
+						<div class="reserve_btn">販売終了</div>
+					</div>
+					<div class="screen_conts">
+						<h3>ハーレイ・クインの華麗…</h3>
+						<p>09:25 ～ <span>12:00</span></p>
+						<div class="reserve_btn">販売終了</div>
+					</div>
+				</div>
+			</section>
+
+			<section class="screen" id="screen2">
+				<h2>SCREEN 02</h2>
+				<div id="screen_cont" class="screen2">
+					<div class="screen_conts">
+						<h3>ハーレイ・クインの華麗…</h3>
+						<p>09:25 ～ <span>12:00</span></p>
+						<div class="reserve_btn reserve_active" onclick="location.href='../reserve/product_seat.html'">
+							座席予約</div>
+					</div>
+					<div class="screen_conts">
+						<h3>ハーレイ・クインの華麗…</h3>
+						<p>09:25 ～ <span>12:00</span></p>
+						<div class="reserve_btn">販売終了</div>
+					</div>
+					<div class="screen_conts">
+						<h3>ハーレイ・クインの華麗…</h3>
+						<p>09:25 ～ <span>12:00</span></p>
+						<div class="reserve_btn">販売終了</div>
+					</div>
+					<div class="screen_conts">
+						<h3>ハーレイ・クインの華麗…</h3>
+						<p>09:25 ～ <span>12:00</span></p>
+						<div class="reserve_btn">販売終了</div>
+					</div>
+					<div class="screen_conts">
+						<h3>ハーレイ・クインの華麗…</h3>
+						<p>09:25 ～ <span>12:00</span></p>
+						<div class="reserve_btn">販売終了</div>
+					</div>
+					<div class="screen_conts">
+						<h3>ハーレイ・クインの華麗…</h3>
+						<p>09:25 ～ <span>12:00</span></p>
+						<div class="reserve_btn">販売終了</div>
+					</div>
+				</div>
+			</section>
+
+			<section class="screen" id="screen3">
+				<h2>SCREEN 03</h2>
+				<div id="screen_cont" class="screen3">
+					<div class="screen_conts">
+						<h3>ハーレイ・クインの華麗…</h3>
+						<p>09:25 ～ <span>12:00</span></p>
+						<div class="reserve_btn reserve_active" onclick="location.href='../reserve/product_seat.html'">
+							座席予約</div>
+					</div>
+					<div class="screen_conts">
+						<h3>ハーレイ・クインの華麗…</h3>
+						<p>09:25 ～ <span>12:00</span></p>
+						<div class="reserve_btn">販売終了</div>
+					</div>
+					<div class="screen_conts">
+						<h3>ハーレイ・クインの華麗…</h3>
+						<p>09:25 ～ <span>12:00</span></p>
+						<div class="reserve_btn">販売終了</div>
+					</div>
+					<div class="screen_conts">
+						<h3>ハーレイ・クインの華麗…</h3>
+						<p>09:25 ～ <span>12:00</span></p>
+						<div class="reserve_btn">販売終了</div>
+					</div>
+					<div class="screen_conts">
+						<h3>ハーレイ・クインの華麗…</h3>
+						<p>09:25 ～ <span>12:00</span></p>
+						<div class="reserve_btn">販売終了</div>
+					</div>
+					<div class="screen_conts">
+						<h3>ハーレイ・クインの華麗…</h3>
+						<p>09:25 ～ <span>12:00</span></p>
+						<div class="reserve_btn">販売終了</div>
+					</div>
+				</div>
+			</section>
+
+			<section class="screen" id="screen4">
+				<h2>SCREEN 04</h2>
+				<div id="screen_cont" class="screen4">
+					<div class="screen_conts">
+						<h3>ハーレイ・クインの華麗…</h3>
+						<p>09:25 ～ <span>12:00</span></p>
+						<div class="reserve_btn reserve_active" onclick="location.href='../reserve/product_seat.html'">
+							座席予約</div>
+					</div>
+					<div class="screen_conts">
+						<h3>ハーレイ・クインの華麗…</h3>
+						<p>09:25 ～ <span>12:00</span></p>
+						<div class="reserve_btn">販売終了</div>
+					</div>
+					<div class="screen_conts">
+						<h3>ハーレイ・クインの華麗…</h3>
+						<p>09:25 ～ <span>12:00</span></p>
+						<div class="reserve_btn">販売終了</div>
+					</div>
+					<div class="screen_conts">
+						<h3>ハーレイ・クインの華麗…</h3>
+						<p>09:25 ～ <span>12:00</span></p>
+						<div class="reserve_btn">販売終了</div>
+					</div>
+					<div class="screen_conts">
+						<h3>ハーレイ・クインの華麗…</h3>
+						<p>09:25 ～ <span>12:00</span></p>
+						<div class="reserve_btn">販売終了</div>
+					</div>
+					<div class="screen_conts">
+						<h3>ハーレイ・クインの華麗…</h3>
+						<p>09:25 ～ <span>12:00</span></p>
+						<div class="reserve_btn">販売終了</div>
+					</div>
+				</div>
+			</section>
+
+			<section class="screen" id="screen5">
+				<h2>SCREEN 05</h2>
+				<div id="screen_cont" class="screen5">
+					<div class="screen_conts">
+						<h3>ハーレイ・クインの華麗…</h3>
+						<p>09:25 ～ <span>12:00</span></p>
+						<div class="reserve_btn reserve_active" onclick="location.href='../reserve/product_seat.html'">
+							座席予約</div>
+					</div>
+					<div class="screen_conts">
+						<h3>ハーレイ・クインの華麗…</h3>
+						<p>09:25 ～ <span>12:00</span></p>
+						<div class="reserve_btn">販売終了</div>
+					</div>
+					<div class="screen_conts">
+						<h3>ハーレイ・クインの華麗…</h3>
+						<p>09:25 ～ <span>12:00</span></p>
+						<div class="reserve_btn">販売終了</div>
+					</div>
+					<div class="screen_conts">
+						<h3>ハーレイ・クインの華麗…</h3>
+						<p>09:25 ～ <span>12:00</span></p>
+						<div class="reserve_btn">販売終了</div>
+					</div>
+					<div class="screen_conts">
+						<h3>ハーレイ・クインの華麗…</h3>
+						<p>09:25 ～ <span>12:00</span></p>
+						<div class="reserve_btn">販売終了</div>
+					</div>
+					<div class="screen_conts">
+						<h3>ハーレイ・クインの華麗…</h3>
+						<p>09:25 ～ <span>12:00</span></p>
+						<div class="reserve_btn">販売終了</div>
+					</div>
+				</div>
+			</section>
+
+			<section class="screen" id="screen6">
+				<h2>SCREEN 06</h2>
+				<div id="screen_cont" class="screen6">
+					<div class="screen_conts">
+						<h3>ハーレイ・クインの華麗…</h3>
+						<p>09:25 ～ <span>12:00</span></p>
+						<div class="reserve_btn reserve_active" onclick="location.href='../reserve/product_seat.html'">
+							座席予約</div>
+					</div>
+					<div class="screen_conts">
+						<h3>ハーレイ・クインの華麗…</h3>
+						<p>09:25 ～ <span>12:00</span></p>
+						<div class="reserve_btn">販売終了</div>
+					</div>
+					<div class="screen_conts">
+						<h3>ハーレイ・クインの華麗…</h3>
+						<p>09:25 ～ <span>12:00</span></p>
+						<div class="reserve_btn">販売終了</div>
+					</div>
+					<div class="screen_conts">
+						<h3>ハーレイ・クインの華麗…</h3>
+						<p>09:25 ～ <span>12:00</span></p>
+						<div class="reserve_btn">販売終了</div>
+					</div>
+					<div class="screen_conts">
+						<h3>ハーレイ・クインの華麗…</h3>
+						<p>09:25 ～ <span>12:00</span></p>
+						<div class="reserve_btn">販売終了</div>
+					</div>
+					<div class="screen_conts">
+						<h3>ハーレイ・クインの華麗…</h3>
+						<p>09:25 ～ <span>12:00</span></p>
+						<div class="reserve_btn">販売終了</div>
+					</div>
+				</div>
+			</section>
+
+			<section class="screen" id="screen7">
+				<h2>SCREEN 07</h2>
+				<div id="screen_cont" class="screen7">
+					<div class="screen_conts">
+						<h3>ハーレイ・クインの華麗…</h3>
+						<p>09:25 ～ <span>12:00</span></p>
+						<div class="reserve_btn reserve_active" onclick="location.href='../reserve/product_seat.html'">
+							座席予約</div>
+					</div>
+					<div class="screen_conts">
+						<h3>ハーレイ・クインの華麗…</h3>
+						<p>09:25 ～ <span>12:00</span></p>
+						<div class="reserve_btn">販売終了</div>
+					</div>
+					<div class="screen_conts">
+						<h3>ハーレイ・クインの華麗…</h3>
+						<p>09:25 ～ <span>12:00</span></p>
+						<div class="reserve_btn">販売終了</div>
+					</div>
+					<div class="screen_conts">
+						<h3>ハーレイ・クインの華麗…</h3>
+						<p>09:25 ～ <span>12:00</span></p>
+						<div class="reserve_btn">販売終了</div>
+					</div>
+					<div class="screen_conts">
+						<h3>ハーレイ・クインの華麗…</h3>
+						<p>09:25 ～ <span>12:00</span></p>
+						<div class="reserve_btn">販売終了</div>
+					</div>
+					<div class="screen_conts">
+						<h3>ハーレイ・クインの華麗…</h3>
+						<p>09:25 ～ <span>12:00</span></p>
+						<div class="reserve_btn">販売終了</div>
+					</div>
+				</div>
+			</section>
+
+			<section class="screen" id="screen8">
+				<h2>SCREEN 08</h2>
+				<div id="screen_cont" class="screen8">
+					<div class="screen_conts">
+						<h3>ハーレイ・クインの華麗…</h3>
+						<p>09:25 ～ <span>12:00</span></p>
+						<div class="reserve_btn reserve_active" onclick="location.href='../reserve/product_seat.html'">
+							座席予約</div>
+					</div>
+					<div class="screen_conts">
+						<h3>ハーレイ・クインの華麗…</h3>
+						<p>09:25 ～ <span>12:00</span></p>
+						<div class="reserve_btn">販売終了</div>
+					</div>
+					<div class="screen_conts">
+						<h3>ハーレイ・クインの華麗…</h3>
+						<p>09:25 ～ <span>12:00</span></p>
+						<div class="reserve_btn">販売終了</div>
+					</div>
+					<div class="screen_conts">
+						<h3>ハーレイ・クインの華麗…</h3>
+						<p>09:25 ～ <span>12:00</span></p>
+						<div class="reserve_btn">販売終了</div>
+					</div>
+					<div class="screen_conts">
+						<h3>ハーレイ・クインの華麗…</h3>
+						<p>09:25 ～ <span>12:00</span></p>
+						<div class="reserve_btn">販売終了</div>
+					</div>
+					<div class="screen_conts">
+						<h3>ハーレイ・クインの華麗…</h3>
+						<p>09:25 ～ <span>12:00</span></p>
+						<div class="reserve_btn">販売終了</div>
+					</div>
+				</div>
+			</section>
+
+			<!-- ここまでを編集 -->
+		</article>
+
+
+		<small>&copy; HAL CINEMA 2020.</small>
+
+	</div>
+
+
+
+	<footer id="scrollTop" onclick="scrollToTop()">
+		<div>
+			<img src="../images/arrow.png" alt="ScrollTop">
+			<p>Scroll top</p>
+		</div>
+	</footer>
+
+	<script src="/js/common.js"></script>
+	<script src="/js/axios.min.js"></script>
+	<script src="/js/jquery.min.js"></script>
+
+	<script>
+		const today = new Date()
+		const day = ['日', '月', '火', '水', '木', '金', '土']
+		let active = 0
+
+		const screenAnimation = () => {
+			for (let i = 0; i < $(".screen").length; i++) {
+				$("#screen" + (i + 1)).delay((i * 200)).slideDown(150)
+			}
+		}
+
+		const createDayBox = () => {
+			const date = new Date()
+			const sec = document.getElementById("date_cont")
+			let items = ""
+			for (let i = 0; i < 8; i++) {
+				items += `<div class="date ${active === i ? 'date_active' : ''}" onclick="changeDay(${i}, ${date.getFullYear()},${date.getMonth()},${date.getDate()})">
+							<p>${String(date.getMonth() + 1).padStart(2, "0")} / ${String(date.getDate()).padStart(2, "0")} (${day[date.getDay()]})</p>
+						</div>`
+				date.setDate(date.getDate() + 1)
+			}
+			sec.innerHTML = items
+		}
+
+		const getSchedule = async (date) => {
+			$(".screen").hide()
+			console.log(date)
+			const result = await axios.get(`/api/getSchedule/${date}`, {
+				params: {
+					cinemaId: "<%= cinemaId %>"
+				}
+			})
+			console.log(result.data)
+			result.data.forEach((element, index) => {
+				const sec = document.getElementsByClassName("screen" + (index + 1))[0]
+				let items = ""
+				if (!element.length) {
+					// 何も入ってなかったとき
+				}
+				for (let i = 0; i < element.length; i++) {
+					const runs = new Date("2020/12/07 " + element[i].plas)
+					runs.setMinutes(runs.getMinutes() + Number(element[i].runs))
+					const hour = String(runs.getHours())
+					const minute = String(runs.getMinutes())
+					if (element[i].seats !== null) {
+						if (element[i].seats >= 128) {
+							items +=
+								`<div class="screen_conts">
+								<h3>${element[i].movieName}</h3>
+								<p>${element[i].plas} ～ <span>${hour.padStart(2, "0")}:${minute.padStart(2, "0")}</span></p>
+								<div class="reserve_btn">
+								満席</div>
+								</div>`
+						} else {
+							if (element[i].seats >= 90) {
+								items +=
+									`<div class="screen_conts">
+								<h3>${element[i].movieName}</h3>
+								<p>${element[i].plas} ～ <span>${hour.padStart(2, "0")}:${minute.padStart(2, "0")}</span></p>
+								<div class="reserve_btn reserve_warning" onclick="location.href='/reserve/${element[i].runId}'">
+								残りわずか</div>
+								</div>`
+							} else {
+								items +=
+									`<div class="screen_conts">
+								<h3>${element[i].movieName}</h3>
+								<p>${element[i].plas} ～ <span>${hour.padStart(2, "0")}:${minute.padStart(2, "0")}</span></p>
+								<div class="reserve_btn reserve_active" onclick="location.href='/reserve/${element[i].runId}'">
+								座席予約</div>
+								</div>`
+							}
+						}
+					} else {
+						items +=
+							`<div class="screen_conts">
+								<h3>${element[i].movieName}</h3>
+								<p>${element[i].plas} ～ <span>${hour.padStart(2, "0")}:${minute.padStart(2, "0")}</span></p>
+								<div class="reserve_btn reserve_active" onclick="location.href='/reserve/${element[i].runId}'">
+								座席予約</div>
+								</div>`
+					}
+				}
+				sec.innerHTML = items
+				screenAnimation()
+			})
+		}
+
+		const changeDay = (i, year, month, date) => {
+			active = i
+			const target = new Date(year, month, date).toLocaleDateString().replace(/\//g, "-")
+			console.log(target)
+			createDayBox(target)
+			getSchedule(target)
+		}
+
+		const now = new Date().toLocaleDateString()
+		createDayBox()
+		getSchedule(now.replace(/\//g, "-"))
+		screenAnimation()
+	</script>
+
+</body>
+
+</html>

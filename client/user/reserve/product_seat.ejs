@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+
+<html lang="ja">
+
+<head>
+
+	<meta charset="utf-8">
+
+	<title><%= movieName %> -座席予約-</title>
+
+	<link rel="stylesheet" href="../css/reset.css">
+	<link rel="stylesheet" href="../css/common.css">
+	<link rel="stylesheet" href="../css/production_seat.css">
+	<link rel="stylesheet" href="../css/reserve.css">
+	<link rel="stylesheet" href="../css/credit.css">
+	<link rel="stylesheet" href="../css/buy_comp.css">
+
+	<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+</head>
+
+<body>
+
+	<style>
+		body {
+			background-color: #212124;
+		}
+	</style>
+
+	<header>
+		<div id="halcinema" onclick="window.location.href = '/home/today_schedule'">
+			<img src="../images/logo_white.png" alt="ロゴ白">
+			<h1>HAL CINEMA</h1>
+		</div>
+		<button id="pan" onclick="location.href='/'">＜地域選択画面</button>
+	</header>
+
+
+	<div id="wrap">
+
+		<p id="pan2" onclick="location.href='/production/<%= movieId %>'" v-if="pageIndex !== 2">＜　作品詳細画面に戻る</p>
+
+		<article>
+			<!-- ここから編集 -->
+			<section id="seat_cont" v-if="pageIndex !== 2">
+				<div id="top_cont">
+					<div id="left_cont">
+						<% const date = new Date(runday) %>
+						<% const endPlas = new Date("2020-09-24" + " " + plas + ":00");
+							 endPlas.setMinutes(endPlas.getMinutes() + Number(runs))
+						%>
+						<h2><%= String(date.getMonth() + 1).padStart(2,"0") %>/<%= String(date.getDate()).padStart(2,"0") %>
+						</h2>
+						<h3>『<%= movieName %>』</h3>
+						<p id="time"><%= plas %><span>~
+								<%= String(endPlas.getHours()).padStart(2,"0") %>:<%= String(endPlas.getMinutes()).padStart(2,"0") %></span>
+						</p>
+					</div>
+					<div id="right_cont">
+						<div class="float">空席</div>
+						<div id="kuseki"></div>
+						<div class="float">満席</div>
+						<div id="manseki"></div>
+						<div class="float">選択</div>
+						<div id="sentaku">✓</div>
+					</div>
+				</div>
+
+				<div id="screen" src="../images/screen.png" alt="スクリーン">screen</div>
+				<div id="seat_area">
+					<% if(lock){ %>
+					<div>他のユーザが予約中です。時間を置いてからもう一度お試しください。</div>
+					<% }else{ %>
+					<!-- <div class="kuseki"></div>
+					<div class="manseki"></div>
+					<div class="sentaku">✓</div> -->
+				</div>
+
+				<div id="tickets">
+				</div>
+
+				<button id="next" @click="scrollBottom">選択座席で予約する　▶</button>
+			</section>
+
+			<!-- ここまでを編集 -->
+			<!-- ここから編集 -->
+
+			<section id="buy_cont" v-if="pageIndex === 1 || pageIndex === 2" class="buy-scroll">
+				<h2 v-if="pageIndex === 1">クレジットカード情報の入力</h2>
+				<h2 v-else>チケット座席予約完了</h2>
+				<div class="buy_conts">
+					<img class="poster" src="<%= poster %>" alt="ポスター">
+					<div class="right_conts">
+						<p class="cinema">HALCINEMA <%= cinemaName %></p>
+						<p class="date">
+							<%= String(date.getFullYear())%>年　<span><%= String(date.getMonth() + 1).padStart(2,"0") %></span>月　<span><%= String(date.getDate()).padStart(2,"0") %></span>日　(日)
+						</p>
+						<h3 class="title">『<%= movieName %>』</h3>
+						<div class="time_conts">
+							<img src="../images/clock.png" alt="時計">
+							<p>
+								<span><%= plas %></span>　~<%= String(endPlas.getHours()).padStart(2,"0") %>:<%= String(endPlas.getMinutes()).padStart(2,"0") %>
+							</p>
+						</div>
+						<ul class="seatScreen">
+							<li class="seat" v-for="item in stock">{{ item.seat }}</li>
+							<li class="price"><span>合計</span>(税込)\{{ value }}</li>
+						</ul>
+					</div>
+				</div>
+				<form action="" v-if="pageIndex === 1">
+					<table id="credit_cont">
+						<tr>
+							<th><label for="credit_number"><span>※</span> カード番号</label></th>
+							<td>
+								<input type="text" maxlength="4" class="credit_number">-
+								<input type="text" maxlength="4" class="credit_number">-
+								<input type="text" maxlength="4" class="credit_number">-
+								<input type="text" maxlength="4" class="credit_number">
+							</td>
+						</tr>
+						<tr>
+							<th><label for="expiration_date"><span>※</span> カード有効期限</label></th>
+							<td>
+								<select required>
+									<option value="">--</option>
+									<option value="1">01</option>
+									<option value="2">02</option>
+									<option value="3">03</option>
+									<option value="4">04</option>
+									<option value="5">05</option>
+									<option value="6">06</option>
+									<option value="7">07</option>
+									<option value="8">08</option>
+									<option value="9">09</option>
+									<option value="10">10</option>
+									<option value="11">11</option>
+									<option value="12">12</option>
+								</select>　月
+								<select required>
+									<option value="">--</option>
+									<option value="2020">20</option>
+									<option value="2021">21</option>
+									<option value="2022">22</option>
+									<option value="2023">23</option>
+									<option value="2024">24</option>
+									<option value="2025">25</option>
+									<option value="2026">26</option>
+									<option value="2027">27</option>
+									<option value="2028">28</option>
+									<option value="2029">29</option>
+									<option value="2030">30</option>
+									<option value="2031">31</option>
+									<option value="2032">32</option>
+									<option value="2033">33</option>
+									<option value="2034">34</option>
+									<option value="2035">35</option>
+									<option value="2036">36</option>
+									<option value="2037">37</option>
+									<option value="2038">38</option>
+									<option value="2039">39</option>
+									<option value="2040">40</option>
+									<option value="2041">41</option>
+									<option value="2042">42</option>
+									<option value="2043">43</option>
+									<option value="2044">44</option>
+									<option value="2045">45</option>
+									<option value="2046">46</option>
+									<option value="2047">47</option>
+								</select>　年
+							</td>
+						</tr>
+						<tr>
+							<th><label for="security_cord"><span>※</span> セキュリティコード</label></th>
+							<td>
+								<input type="password" id="security_cord" maxlength="3" placeholder="123" required>
+							</td>
+						</tr>
+					</table>
+					<div id="cont_right">
+						<input type="submit" @click="reSelect" value="再選択" id="back">
+						<input type="button" value="購入" id="create" @click="buyTickets">
+					</div>
+				</form>
+
+				<div id="ty" v-if="pageIndex === 2">
+					<!-- <img id="ojigi" src="/images/ojigi.png" alt="お辞儀"> -->
+					<p id="text">
+						ご予約ありがとうございます。<br>
+						座席予約チケット情報は<a id="link_customer" href="/users/customer">アカウント情報画面</a><br>
+						から確認可能です。
+					</p>
+					<a id="use_ticket" href="/users/customer">チケット使用方法はこちら</a>
+				</div>
+
+			</section>
+
+			<!-- ここまでを編集 -->
+
+		</article>
+
+
+	</div>
+
+
+
+	<footer id="copyRight">
+		<small>&copy; HAL CINEMA 2020.</small>
+	</footer>
+
+
+	<script src="/js/axios.min.js"></script>
+	<script src="/js/jquery.min.js"></script>
+	<script>
+		const kind = ["", "A", "B", "C", "D", "E", "F", "G", "H"]
+		const seat_length = 16
+		let seats = new Array(kind.length)
+
+		const HOST = location.origin.replace(/^http/, 'ws') + "/reserve/ws/<%= runId %>";
+		console.log(HOST)
+		const ws = new WebSocket(HOST);
+
+		(async function () {
+			const { data } = await axios.get("/api/getSeat/<%= runId %>")
+			console.log(data)
+			for (let x = 0; x < kind.length; x++) {
+				const sec = document.createElement("div")
+				sec.classList.add("seat_block")
+				seats[x] = []
+				if (x === 0) {
+					sec.innerHTML = `<div class="seat_head"></div>`
+					for (let i = 0; i < seat_length; i++) {
+						sec.innerHTML += `<div class="seat_number">${i + 1}</div>`
+						if ((i + 1) % 4 === 0 && i !== 15) {
+							sec.innerHTML += `<div style="margin-left: 30px;"></div>`
+						}
+					}
+				} else {
+					sec.innerHTML = `<div class="seat_head">${kind[x]}列</div>`
+					sec.setAttribute("id", "seat" + kind[x])
+					for (let i = 0; i < seat_length; i++) {
+						seats[x].push({ seat: `${kind[x]}${i + 1}`, flag: 0 })
+						const test = data.filter((val) => {
+							return val.seat === seats[x][i].seat
+						})
+						if (test.length) {
+							sec.innerHTML += `<div class="manseki seat_box"></div>`
+						} else {
+							sec.innerHTML += `<div class="kuseki seat_box" onclick="inStock(this,'${seats[x][i].seat}')"></div>`
+						}
+						if ((i + 1) % 4 === 0 && i !== 15) {
+							sec.innerHTML += `<div style="margin-left: 30px;"></div>`
+						}
+					}
+				}
+				document.getElementById("seat_area").appendChild(sec)
+			}
+		}())
+
+
+		const inStock = (node, seat) => {
+			if (node.classList.contains("kuseki")) {
+				node.classList.remove("kuseki")
+				node.classList.add("sentaku")
+				node.innerHTML = "✓"
+				app.stock.push({ runId: "<%= runId %>", seat: seat, kind: 0, email: "<%= email %>" })
+			} else {
+				node.classList.remove("sentaku")
+				node.classList.add("kuseki")
+				node.innerHTML = ""
+				app.stock = app.stock.filter((val) => {
+					return val.seat !== seat;
+				})
+			}
+			console.log(app.stock)
+
+
+			let ticket = "";
+			for (let element of app.stock) {
+				console.log(element)
+				ticket += `<div class="ticket">
+						<h3>${element.seat}</h3>
+						<select name="ticket_kind" id="ticket${element.seat}" onChange="app.sumAll()">
+							<option value="0" selected>大人</option>
+							<option value="1">小・中学生</option>
+							<option value="2">高齢者</option>
+						</select>
+					</div>`
+			}
+			document.getElementById("tickets").innerHTML = ticket
+			app.sumAll()
+		}
+	</script>
+
+	<% } %>
+
+	<script>
+		const app = new Vue({
+			el: "#wrap",
+			data: {
+				tax: 0.1,
+				pageIndex: 0,
+				value: 0,
+				stock: []
+			},
+			methods: {
+				sumAll() {
+					this.value = 0
+					for (let i = 0; i < this.stock.length; i++) {
+						this.stock[i].kind = document.getElementById("ticket" + this.stock[i].seat).value
+					}
+					(async function () {
+						const { data } = await axios.get("/api/getValue")
+						let valNoFix = 0
+						app.stock.forEach(seat => {
+							valNoFix += data[seat.kind].value
+						})
+						const valInTax = valNoFix + (valNoFix * app.tax)
+						app.value = valInTax.toLocaleString()
+					})()
+				},
+				scrollBottom() {
+					app.pageIndex = 1
+					console.log(document.getElementById("seat_cont"))
+					const clientRect = document.getElementById("seat_cont").getBoundingClientRect()
+					const py = window.pageYOffset + clientRect.bottom
+					setTimeout(() => {
+						window.scrollTo({ top: py, behavior: "smooth" })
+					}, 200)
+				},
+				buyTickets() {
+					(async function () {
+						$("#buy_cont").fadeOut(10);
+						const { status } = await axios.post("/api/buyTickets", { stock: app.stock });
+						console.log(status)
+						if (status === 200) {
+							//成功処理
+							app.pageIndex = 2
+							$("#buy_cont").delay(400).fadeIn(300)
+							$("#buy_cont").animate({ "margin-top": "110px" })
+						} else {
+							//失敗処理
+						}
+					})()
+				},
+				reSelect() {
+					window.scrollTo({ top: 0, behavior: "smooth" })
+				}
+			}
+		})
+	</script>
+
+</body>
+
+</html>

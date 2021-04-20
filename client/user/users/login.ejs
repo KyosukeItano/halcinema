@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+
+<html lang="ja">
+
+<head>
+
+	<meta charset="utf-8">
+
+	<title>ログイン</title>
+
+	<link rel="stylesheet" href="../css/reset.css">
+	<link rel="stylesheet" href="../css/common.css">
+	<link rel="stylesheet" href="../css/login.css">
+
+</head>
+
+<body>
+
+	<header>
+		<div id="halcinema" onclick="window.location.href = '/home/today_schedule'">
+			<img src="../images/logo_white.png" alt="ロゴ白">
+			<h1>HAL CINEMA</h1>
+		</div>
+		<button id="pan" onclick="location.href='/'">＜地域選択画面</button>
+	</header>
+
+
+	<div id="wrap">
+
+
+		<article>
+			<!-- ここから編集 -->
+
+			<section id="login_cont">
+				<h2>
+					<img src="../images/logo_black.png" alt="ロゴ">HAL CINEMA
+				</h2>
+				<p id="signin">SIGN IN</p>
+				<p id="error">
+					チケット購入にはログインが必要です。<br>
+					IDまたはパスワードが正しくありません。
+				</p>
+				<div id="login">
+					<div id="mail">
+						<img src="../images/mail_icon.png" alt="メール">
+						<h3>Mail</h3>
+						<input type="text" name="username" placeholder="halcinema@gmail.com">
+					</div>
+					<div id="password">
+						<img src="../images/password_icon.png" alt="パスワード">
+						<h3>Pass</h3>
+						<input type="password" name="password" placeholder="password">
+					</div>
+					<input type="button" value="ログイン" id="loginBtn" onclick="loginReq()">
+					<p id="or">または</p>
+					<input type="button" id="google_loginbtn" value="Googleアカウントでログイン"
+						onclick="window.location.href='/auth/google'" />
+					<div id="signUp"><a href="/users/sign_up">アカウントをお持ちでない方はこちらから</a></div>
+
+				</div>
+			</section>
+
+			<!-- ここまでを編集 -->
+		</article>
+
+
+	</div>
+
+
+
+	<footer id="copyRight">
+		<small>&copy; HAL CINEMA 2020.</small>
+	</footer>
+
+	<script src="/js/axios.min.js"></script>
+	<script>
+		const loginReq = async () => {
+			const formData = {
+				username: document.getElementsByName("username")[0].value,
+				password: document.getElementsByName("password")[0].value
+			}
+
+			// バリデート処理未実装
+
+			const result = await axios.post("/auth/logIn", { ...formData })
+			console.log(result)
+			if (result.status === 200) {
+				window.location.href = "/home/today_schedule"
+			}
+			if (result.status === 403) {
+				// ログイン失敗処理
+			}
+		}
+	</script>
+
+</body>
+
+</html>

@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <!-- reset css -->
+  <link rel="stylesheet" href="/css/reset.css">
+  <!--共有の -->
+
+  <!-- 共通 css -->
+  <link rel="stylesheet" href="/css/common_admin.css">
+  <!--共有の -->
+
+  <!-- fontawesome -->
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css">
+
+  <title>ホーム画面 index</title>
+
+  <!-- ページ内スタイル -->
+  <style>
+    main {
+      width: 80%;
+      max-width: 1200px;
+      min-width: 350px;
+      margin: 20vh auto 100px auto;
+      font-size: 1.4rem;
+    }
+
+    .home_head {
+      font-size: 1.6rem;
+      margin-bottom: 24px;
+      margin-left: 12px;
+    }
+
+    .home_top {
+      margin-left: 12px;
+      line-height: 1.4;
+    }
+
+    .home_flexs {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-around;
+      align-items: center;
+      margin-top: 24px;
+
+    }
+
+    #calendar {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      min-width: 350px;
+      max-width: 750px;
+      width: 52vw;
+    }
+
+    #calendar section {
+      margin: 40px auto 0 auto;
+    }
+
+
+    #calendar table {
+      margin-top: 4px;
+      border-spacing: 0;
+      border-collapse: collapse;
+    }
+
+    #calendar td {
+      border: 1px solid #ddd;
+      padding: 12px;
+      text-align: center;
+    }
+
+    .calendar_td {
+      cursor: pointer;
+      transition: background-color .3s, opacity .3s;
+    }
+
+    .grey_td {
+      background-color: rgba(245, 245, 245);
+    }
+
+    .td_tody {
+      font-weight: bold;
+      font-size: 16px;
+    }
+
+    .calendar_td:hover {
+      background-color: #ddd;
+      opacity: .7;
+    }
+
+    #calendar td:first-child {
+      color: #C5767C;
+    }
+
+    #calendar td:last-child {
+      color: #7698C5;
+    }
+
+    #calendar td.is-disabled {
+      color: #ccc;
+    }
+
+    .calendar_buttons {
+      display: flex;
+      justify-content: flex-end;
+      margin-top: 4px;
+      margin-bottom: 8px;
+    }
+
+    .calendar_buttons button {
+      background-color: #fafafa;
+      color: #ccc;
+      font-weight: normal;
+      height: 28px;
+      line-height: 28px;
+    }
+
+    .calendar_buttons button:nth-child(2) {
+      margin-right: 24px;
+    }
+
+    .calendar_buttons button:hover {
+      text-decoration: underline;
+    }
+
+    .page_link {
+      width: 350px;
+    }
+
+    .page_link button {
+      margin: 20px 0 0 0;
+      width: 100%;
+    }
+
+    footer {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+    }
+  </style>
+</head>
+
+<!-- --------------------------body---------------------------------------------------------------------------- -->
+
+<body>
+
+  <!-- ---header -->
+  <header>
+    <h1>
+      <a href="/admin">
+        <span class="header-logo">HAL CINEMA</span>
+        <span class="header-address"><%= cinemaName %></span>
+      </a>
+    </h1>
+    <div>
+      <img src="/images/menu.png" alt="menu" onclick="menuFadeIn()">
+    </div>
+  </header>
+
+  <!-- menu -->
+  <article class="menu" id="menu">
+    <h2>MENU</h2>
+    <ul>
+      <li><a href="/admin" class="link">ホーム</a></li>
+      <li><a href="/admin/mail" class="link">メール作成</a></li>
+      <li><a href="/admin/pdf" class="link">データ分析</a></li>
+      <li><a href="/admin/production_list" class="link">登録映画一覧</a></li>
+      <li><a href="/admin/production_add" class="link">映画追加</a></li>
+      <li class="menu-logout"><a href="/auth/logOut" class="link">ログアウト</a></li>
+    </ul>
+    <img src="/images/menu_close.png" alt="メニュークローズアイコン" class="menu-close" onclick="menuFadeOut()">
+  </article>
+
+  <!-- ---main -->
+  <main>
+    <h2 class="home_head">HALシネマ<%= cinemaName %> 上映映画スケジュール調整</h2>
+    <p class="home_top">※曜日クリックで編集、上映スケジュールが<span class="attention-color">全て未登録</span>のカレンダーの日付が<span
+        class="attention-color">灰色</span>で表示されます。</p>
+
+    <article class="home_flexs">
+      <section>
+        <div id="calendar"></div>
+        <div class="calendar_buttons">
+          <button id="prev" type="button">前の月</button>
+          <button id="next" type="button">次の月</button>
+        </div>
+      </section>
+
+      <section class="page_link">
+        <a href="/admin/production_list"><button>登録映画一覧</button></a>
+        <a href="/admin/mail"><button>発信メール作成</button></a>
+        <a href="/admin/pdf"><button>売り上げ分析</button></a>
+        <button>ログアウト</button>
+      </section>
+    </article>
+
+  </main>
+
+
+
+  <!-- ---footer -->
+  <footer onclick="scrollToTop()">
+    <img src="/images/arrow.png" alt="上矢印アイコン">
+    <p>Back top</p>
+  </footer>
+
+
+
+  <!-- orinal javascript file -->
+  <script src="/js/common.js"></script>
+  <script src="/js/axios.min.js"></script>
+  <!-- カレンダーjs -->
+  <script>
+    // https://qiita.com/kan_dai/items/b1850750b883f83b9bee
+
+
+    const weeks = ['日', '月', '火', '水', '木', '金', '土']
+    const date = new Date()
+    //dateobject.getFullYear() 地方に基づいてyyyyでreturn
+    let year = date.getFullYear()
+    //0 ~ 11 を return するから1をタス
+    let month = date.getMonth() + 1
+    let toMonth = date.getMonth() + 1
+    let toDay = date.getDate()
+    //カレンダーの数を設定する変数
+    const config = {
+      show: 2,
+    }
+    // configオブジェクトのshowプロパティをconsole.log()
+    // console.log(config.show);
+
+    // ----------変数------------------------------------
+    // weeks ['日', '月', '火', '水', '木', '金', '土']
+    // year 2020
+    // month 7
+    // config {show:2}
+
+    // year,month変数を引数としてshowCalendarを実行
+    async function showCalendar(year, month) {
+      //カレンダーをいくつ作るか configオブジェクトのshowプロパティで設定
+      for (i = 0; i < config.show; i++) {
+        const { data } = await axios.get("/api/getCalendar", { params: { year, month, cinemaId: "<%= cinemaId %>" } })
+        //calendarHTMLにカレンダーtableを作成 自分で定義したcreateCalendarを使用
+        const calendarHtml = createCalendar(year, month, data)
+        //変数secにcreateElement('section')
+        const sec = document.createElement('section')
+        //変数secのinnerHTMLをcalenderHTMLに
+        sec.innerHTML = calendarHtml
+        //元々あるhtmlのid calendarに作ったsecを追加(appnedChild)
+        document.querySelector('#calendar').appendChild(sec)
+
+        //月変数に1をたす
+        month++
+        //月が13月にならないようにmonth変数が12になった時に月を1にして年をリセット
+        if (month > 12) {
+          year++
+          month = 1
+        }
+      }
+    }
+
+    function createCalendar(year, month, data) {
+      // monthは0スタートなので最初に足した1ぶんここで引いている
+      const startDate = new Date(year, month - 1, 1) // 月の最初の日を取得
+      //date()の第三引数を0にすると指定月の前月の最終日が取得できる
+      const endDate = new Date(year, month, 0) // 月の最後の日を取得
+
+      const endDayCount = endDate.getDate() // 月の末日
+      const lastMonthEndDate = new Date(year, month - 2, 0) // 前月の最後の日の情報
+      const lastMonthendDayCount = lastMonthEndDate.getDate() // 前月の末日
+      const startDay = startDate.getDay() // 月の最初の日の曜日を取得
+      let dayCount = 1 // 日にちのカウント
+      let calendarHtml = '' // HTMLを組み立てる変数
+
+      // ----------変数------------------------------------
+      // weeks ['日', '月', '火', '水', '木', '金', '土']
+      // year 2020
+      // month 7
+      // endDayCount 31
+
+      calendarHtml += '<h3>' + year + '/' + month + '</h3>'
+      calendarHtml += '<table>'
+
+      // 曜日の行(1行目)を作成
+      for (let i = 0; i < weeks.length; i++) {
+        calendarHtml += '<td>' + weeks[i] + '</td>'
+      }
+
+      for (let w = 0; w < 6; w++) {
+        calendarHtml += '<tr>'
+
+        for (let d = 0; d < 7; d++) {
+          if (w == 0 && d < startDay) {
+            // 1行目で1日の曜日の前
+            calendarHtml += '<td class="is-disabled"> ー </td>'
+          } else if (dayCount > endDayCount) {
+            // 末尾の日数を超えた
+            calendarHtml += '<td class="is-disabled"> ー </td>'
+            dayCount++
+          } else {
+            const nowDate = new Date(year, month - 1, dayCount)
+            let isToday = ""
+            if (nowDate.getDate() === toDay && toMonth === nowDate.getMonth() + 1) {
+              isToday = "td_tody"
+            }
+            if (data.indexOf(nowDate.toLocaleDateString()) !== -1) {
+              calendarHtml += `<td class="calendar_td ${isToday}" data-date="${year}/${month}/${dayCount}">${dayCount}</td>`
+            } else {
+              calendarHtml += `<td class="calendar_td grey_td ${isToday}" data-date="${year}/${month}/${dayCount}">${dayCount}</td>`
+            }
+            dayCount++
+          }
+        }
+        calendarHtml += '</tr>'
+      }
+      calendarHtml += '</table>'
+
+      return calendarHtml
+    }
+
+    function moveCalendar(e) {
+      document.querySelector('#calendar').innerHTML = ''
+
+      if (e.target.id === 'prev') {
+        month--
+
+        if (month < 1) {
+          year--
+          month = 12
+        }
+      }
+
+      if (e.target.id === 'next') {
+        month++
+
+        if (month > 12) {
+          year++
+          month = 1
+        }
+      }
+
+      showCalendar(year, month)
+    }
+
+    //moveCalenderメソッドを#prevをクリックしたら実行
+    document.querySelector('#prev').addEventListener('click', moveCalendar)
+    //moveCalenderメソッドを#prevをクリックしたら実行
+    document.querySelector('#next').addEventListener('click', moveCalendar)
+
+    document.addEventListener("click", function (e) {
+      if (e.target.classList.contains("calendar_td")) {
+        alert('クリックした日付は' + e.target.dataset.date + 'です')
+        const pathDate = e.target.dataset.date.replace(/\//g, "-")
+        window.location.href = `/admin/screen_schedule/${pathDate}`;
+      }
+    })
+
+    // 最初にページにアクセスした時にshowCalendarを実行
+    showCalendar(year, month)
+  </script>
+</body>
+
+</html>
